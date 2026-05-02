@@ -5,16 +5,17 @@ import { AuthStore } from '../store/auth.store';
 const DEEZER_API = 'https://api.deezer.com';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-    const authStore = inject(AuthStore);
-    const token = authStore.token();
+    return next(req);
+    // const authStore = inject(AuthStore);
+    // const token = authStore.token();
 
-    if (!req.url.startsWith(DEEZER_API) || !token) {
-        return next(req);
-    }
+    // if (!req.url.startsWith(DEEZER_API) || !token) {
+    //     return next(req);
+    // }
 
-    const authedReq = req.clone({
-        setParams: { access_token: token.accessToken },
-    });
+    // const authedReq = req.clone({
+    //     setParams: { access_token: token.accessToken },
+    // });
 
-    return next(authedReq);
+    // return next(authedReq);
 };

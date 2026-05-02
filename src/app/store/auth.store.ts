@@ -40,7 +40,9 @@ export class AuthStore {
     readonly error = computed(() => this._state().error);
     readonly isAuthenticated = computed(() => {
         const t = this._state().token;
-        return t !== null && Date.now() < t.expiresAt;
+        // return t !== null && Date.now() < t.expiresAt;
+        // TODO: remove mock token when Deezer OAuth is available
+        return { accessToken: 'mock_token', expiresAt: Date.now() + 1000 * 60 * 60 * 24 };
     });
 
     constructor() {
