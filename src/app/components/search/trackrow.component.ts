@@ -4,10 +4,10 @@ import { DeezerTrack } from '../../models/search.models';
 import { TrackDurationPipe } from '../../pipes/track-duration.pipe';
 
 @Component({
-    selector: 'app-track-row',
-    standalone: true,
-    imports: [RouterLink, TrackDurationPipe],
-    template: `
+  selector: 'app-track-row',
+  standalone: true,
+  imports: [RouterLink, TrackDurationPipe],
+  template: `
     <div
       class="group flex items-center gap-4 rounded-lg px-3 py-2 transition hover:bg-muted"
       role="row"
@@ -16,7 +16,7 @@ import { TrackDurationPipe } from '../../pipes/track-duration.pipe';
       <img
         [src]="track().album.cover_small"
         [alt]="'Cover for ' + track().album.title"
-        class="h-10 w-10 flex-shrink-0 rounded object-cover"
+        class="h-10 w-10 shrink-0 rounded object-cover"
         loading="lazy"
       />
 
@@ -30,7 +30,7 @@ import { TrackDurationPipe } from '../../pipes/track-duration.pipe';
         </a>
       </div>
 
-      <span class="text-muted-foreground flex-shrink-0 text-xs tabular-nums">
+      <span class="text-muted-foreground shrink-0 text-xs tabular-nums">
         {{ track().duration | trackDuration }}
       </span>
 
@@ -38,7 +38,7 @@ import { TrackDurationPipe } from '../../pipes/track-duration.pipe';
         <button
           [attr.aria-label]="'Play 30 second preview of ' + track().title"
           (click)="previewClicked.emit(track())"
-          class="flex-shrink-0 rounded-full p-1.5 text-muted-foreground opacity-0 transition hover:bg-background hover:text-foreground group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          class="shrink-0 rounded-full p-1.5 text-muted-foreground opacity-0 transition hover:bg-background hover:text-foreground group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <svg aria-hidden="true" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
             <path d="M8 5v14l11-7z" />
@@ -49,6 +49,6 @@ import { TrackDurationPipe } from '../../pipes/track-duration.pipe';
   `,
 })
 export class TrackRowComponent {
-    readonly track = input.required<DeezerTrack>();
-    readonly previewClicked = output<DeezerTrack>();
+  readonly track = input.required<DeezerTrack>();
+  readonly previewClicked = output<DeezerTrack>();
 }
