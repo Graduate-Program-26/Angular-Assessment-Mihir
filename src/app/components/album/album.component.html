@@ -31,7 +31,7 @@
                     </span>
                     <span aria-hidden="true" class="text-muted-foreground">·</span>
                     <span class="text-muted-foreground">
-                        {{ album.nb_tracks }} tracks
+                        {{ album.nb_tracks }} songs
                     </span>
                     <span aria-hidden="true" class="text-muted-foreground">·</span>
                     <span class="text-muted-foreground">{{ store.totalDuration() }}</span>
@@ -46,6 +46,47 @@
                 </div>
                 }
             </div>
+        </div>
+    </section>
+
+    <section aria-label="Tracklist" class="mx-auto max-w-4xl px-4 py-8 md:px-8">
+        <div role="grid" aria-label="Album tracks" class="flex flex-col">
+            <div role="row" aria-hidden="true"
+                class="text-muted-foreground mb-2 grid grid-cols-[2rem_1fr_auto] gap-4 border-b border-border px-3 pb-2 text-xs uppercase tracking-wider">
+                <span>#</span>
+                <span>Title</span>
+                <span>Duration</span>
+            </div>
+            @for (track of store.tracks(); track track.id) {
+            <div role="row"
+                class="group grid grid-cols-[2rem_1fr_auto] items-center gap-4 rounded-lg px-3 py-2 transition hover:bg-muted"
+                [attr.aria-label]="track.title + ' track ' + track.track_position">
+
+                <div class="relative flex items-center justify-center">
+                    <span class="text-muted-foreground tabular-nums text-sm group-hover:hidden" aria-hidden="true">
+                        {{track.track_position}}
+                    </span>
+                    @if (track.preview) {
+                    <button
+                        class="hidden group-hover:flex items-center justify-center text-foreground focus-visible:flex focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-full"
+                        [attr.aria-label]="'Play preview of ' + track.title" (click)="onPreview(track)">
+                        <svg aria-hidden="true" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z" />
+                        </svg>
+                    </button>
+                    }
+                </div>
+
+                <div class="min-w-0">
+                    <p class="truncate text-sm font-medium">{{track.title}}</p>
+                    <p class="text-muted-foreground truncate text-xs">{{track.artist.name}}</p>
+                </div>
+
+                <span class="text-muted-foreground text-xs tabular-nums">
+                    {{track.duration | trackDuration}}
+                </span>
+            </div>
+            }
         </div>
     </section>
     }
