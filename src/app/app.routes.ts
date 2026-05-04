@@ -20,8 +20,14 @@ export const routes: Routes = [
         path: '',
         canActivate: [authGuard],
         loadComponent: () =>
-            import('./app').then(m => m.App),
+            import('./components/shell/shell.component').then(m => m.ShellComponent),
         children: [
+            {
+                path: '',
+                pathMatch: 'full',
+                loadComponent: () =>
+                    import('./components/home/home.component').then(m => m.HomeComponent),
+            },
             {
                 path: 'search',
                 loadComponent: () =>
@@ -50,7 +56,6 @@ export const routes: Routes = [
                         m => m.PlaylistsComponent
                     ),
             },
-            { path: '', redirectTo: 'search', pathMatch: 'full' },
         ],
     },
     { path: '**', redirectTo: '' },

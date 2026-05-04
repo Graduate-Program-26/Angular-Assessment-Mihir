@@ -11,9 +11,10 @@ import { TrackRowComponent } from "./trackrow.component";
   standalone: true,
   template: `<main class="mx-auto max-w-5xl px-4 py-8" aria-label="Search">
  
-      <!-- Search bar (visible on mobile where navbar bar may be hidden) -->
-      <div class="mb-8 md:hidden">
-        <app-search-bar />
+      <div class="mb-8 flex justify-center">
+        <div class="w-full max-w-xl">
+          <app-search-bar />
+        </div>
       </div>
  
       @if (!store.query()) {
@@ -39,12 +40,6 @@ import { TrackRowComponent } from "./trackrow.component";
         <!-- Error state -->
         <div role="alert" class="flex flex-col items-center gap-3 py-24 text-center">
           <p class="text-destructive text-sm">Something went wrong. Please try again.</p>
-          <button
-            (click)="store.clearSearch()"
-            class="text-muted-foreground text-xs underline hover:text-foreground"
-          >
-            Clear search
-          </button>
         </div>
  
       } @else if (store.isEmpty()) {
