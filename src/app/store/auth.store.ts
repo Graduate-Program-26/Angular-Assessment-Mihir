@@ -1,8 +1,7 @@
 import { Injectable, computed, effect, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { catchError, map, of } from 'rxjs';
+import { catchError, of } from 'rxjs';
 import { AuthState, DeezerAuthToken, DeezerUser } from '../models/auth.models';
 
 const STORAGE_KEY = 'deezer_auth';
@@ -39,7 +38,7 @@ export class AuthStore {
     readonly loading = computed(() => this._state().loading);
     readonly error = computed(() => this._state().error);
     readonly isAuthenticated = computed(() => {
-        const t = this._state().token;
+        // const t = this._state().token;
         // return t !== null && Date.now() < t.expiresAt;
         // TODO: remove mock token when Deezer OAuth is available
         return { accessToken: 'mock_token', expiresAt: Date.now() + 1000 * 60 * 60 * 24 };

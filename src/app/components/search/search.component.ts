@@ -1,16 +1,15 @@
 import { Component, inject } from "@angular/core";
 import { SearchTab, DeezerTrack } from "../../models/search.models";
 import { SearchStore } from "../../store/search.store";
-import { RouterLink } from "@angular/router";
 import { SearchBarComponent } from "./searchbar.component";
 import { ArtistCardComponent } from "./artistcard.component";
 import { AlbumCardComponent } from "./albumcard.component";
 import { TrackRowComponent } from "./trackrow.component";
 
 @Component({
-    selector: 'app-search',
-    standalone: true,
-    template: `<main class="mx-auto max-w-5xl px-4 py-8" aria-label="Search">
+  selector: 'app-search',
+  standalone: true,
+  template: `<main class="mx-auto max-w-5xl px-4 py-8" aria-label="Search">
  
       <!-- Search bar (visible on mobile where navbar bar may be hidden) -->
       <div class="mb-8 md:hidden">
@@ -130,24 +129,24 @@ import { TrackRowComponent } from "./trackrow.component";
         }
       }
     </main>`,
-    imports: [
-        SearchBarComponent,
-        ArtistCardComponent,
-        AlbumCardComponent,
-        TrackRowComponent,]
+  imports: [
+    SearchBarComponent,
+    ArtistCardComponent,
+    AlbumCardComponent,
+    TrackRowComponent,]
 })
 export class SearchComponent {
-    protected readonly store = inject(SearchStore);
+  protected readonly store = inject(SearchStore);
 
-    protected readonly tabs: { key: SearchTab; label: string }[] = [
-        { key: 'artists', label: 'Artists' },
-        { key: 'albums', label: 'Albums' },
-        { key: 'tracks', label: 'Tracks' },
-    ];
+  protected readonly tabs: { key: SearchTab; label: string }[] = [
+    { key: 'artists', label: 'Artists' },
+    { key: 'albums', label: 'Albums' },
+    { key: 'tracks', label: 'Tracks' },
+  ];
 
-    onPreview(track: DeezerTrack): void {
-        // TODO: wire up to audio player store when built
-        const audio = new Audio(track.preview);
-        audio.play();
-    }
+  onPreview(track: DeezerTrack): void {
+    // TODO: wire up to audio player store when built
+    const audio = new Audio(track.preview);
+    audio.play();
+  }
 }
