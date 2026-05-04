@@ -6,49 +6,27 @@ import { SearchStore } from '../../store/search.store';
   standalone: true,
   imports: [],
   template: `
-    <div class="relative w-full max-w-md">
-      <label for="search-input" class="sr-only">Search artists, albums and tracks</label>
+  <div class="relative w-full max-w-md">
+    <label for="search-input" class="sr-only">
+      Search artists, albums and tracks
+    </label>
 
-      <div class="pointer-events-none absolute inset-y-0 left-3 flex items-center">
-        <svg
-          aria-hidden="true"
-          class="h-4 w-4 text-muted-foreground"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-        >
-          <circle cx="11" cy="11" r="8" />
-          <path d="m21 21-4.35-4.35" />
-        </svg>
-      </div>
-
-      <input
-        id="search-input"
-        type="search"
-        role="searchbox"
-        aria-label="Search artists, albums and tracks"
-        autocomplete="off"
-        placeholder="Search artists, albums, tracks…"
-        [value]="store.query()"
-        (input)="onInput($event)"
-        (keydown.enter)="onEnter()"
-        (focus)="focused.emit()"
-      />
-
-      @if (store.query()) {
-        <button
-          aria-label="Clear search"
-          (click)="store.clearSearch()"
-          class="absolute inset-y-0 right-3 flex items-center text-muted-foreground hover:text-foreground"
-        >
-          <svg aria-hidden="true" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M18 6 6 18M6 6l12 12" />
-          </svg>
-        </button>
-      }
-    </div>
-  `,
+    <input
+      id="search-input"
+      type="search"
+      role="searchbox"
+      aria-label="Search artists, albums and tracks"
+      autocomplete="off"
+      placeholder="Search artists, albums, tracks…"
+      [value]="store.query()"
+      (input)="onInput($event)"
+      (keydown.enter)="onEnter()"
+      (focus)="focused.emit()"
+      class="w-full h-11 pl-11 pr-10 rounded-full text-muted-foreground bg-gray-200 text-sm placeholder:text-gray-400 border border-transparent backdrop-blur-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/20 focus:bg-neutral-300 hover:bg-neutral-400
+      "
+    />
+  </div>
+`
 })
 export class SearchBarComponent {
   protected readonly store = inject(SearchStore);
