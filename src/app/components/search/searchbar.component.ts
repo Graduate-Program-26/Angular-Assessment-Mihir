@@ -1,12 +1,11 @@
 import { Component, inject, output } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { SearchStore } from '../../store/search.store';
 
 @Component({
-    selector: 'app-search-bar',
-    standalone: true,
-    imports: [],
-    template: `
+  selector: 'app-search-bar',
+  standalone: true,
+  imports: [],
+  template: `
     <div class="relative w-full max-w-md">
       <label for="search-input" class="sr-only">Search artists, albums and tracks</label>
 
@@ -52,15 +51,15 @@ import { SearchStore } from '../../store/search.store';
   `,
 })
 export class SearchBarComponent {
-    protected readonly store = inject(SearchStore);
-    readonly focused = output<void>();
+  protected readonly store = inject(SearchStore);
+  readonly focused = output<void>();
 
-    onInput(event: Event): void {
-        const value = (event.target as HTMLInputElement).value;
-        this.store.setQuery(value);
-    }
+  onInput(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.store.setQuery(value);
+  }
 
-    onEnter(): void {
+  onEnter(): void {
 
-    }
+  }
 }

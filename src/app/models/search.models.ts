@@ -28,7 +28,7 @@ export interface DeezerAlbum {
     cover_big: string;
     release_date: string;
     tracklist: string;
-    artist: Pick<DeezerArtist, 'id' | 'name' | 'picture_small'>;
+    artist?: Pick<DeezerArtist, 'id' | 'name' | 'picture_small'>;
     type: 'album';
 }
 
