@@ -29,6 +29,13 @@ export class AlbumStore {
     readonly tracks = computed(() => this._state().album?.tracks.data ?? []);
     readonly genres = computed(() => this._state().album?.genres.data ?? []);
 
+    readonly totalDuration = computed(() => {
+        const total = this._state().album?.duration ?? 0;
+        const h = Math.floor(total / 3600);
+        const m = Math.floor((total % 3600) / 60);
+        return h > 0 ? `${h} hr ${m} min` : `${m} min`;
+    });
+
     constructor() {
         toObservable(computed(() => this._state().albumId))
             .pipe(

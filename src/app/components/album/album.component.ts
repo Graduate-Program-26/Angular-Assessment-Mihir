@@ -1,12 +1,14 @@
 import { Component, inject, OnInit } from "@angular/core";
 import { AlbumStore } from "../../store/album.store";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, RouterLink } from "@angular/router";
 import { DeezerAlbumTrack } from "../../models/album.model";
+import { DatePipe } from "@angular/common";
 
 @Component({
     selector: 'app-album',
     standalone: true,
     templateUrl: 'album.component.html',
+    imports: [RouterLink, DatePipe],
 })
 export class AlbumComponent implements OnInit {
     protected readonly store = inject(AlbumStore);
