@@ -1,7 +1,12 @@
 <main aria-label="Album Page">
     @if (store.loading()) {
-    <!-- placeholder for skeleton -->
-    <p>loading...</p>
+    <div role="status" aria-label="Loading album" class="animate-pulse">
+        <div class="bg-muted h-56 w-full md:h-72"></div>
+        <div class="mx-auto max-w-4xl space-y-3 px-4 py-8">
+            <div class="bg-muted h-7 w-56 rounded"></div>
+            <div class="bg-muted h-4 w-32 rounded"></div>
+        </div>
+    </div>
     }
     @else if(store.error()){
     <div role="alert" class="flex flex-col items-center gap-3 py-24 text-center">
