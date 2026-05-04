@@ -1,7 +1,6 @@
 import { Component, inject } from "@angular/core";
 import { AuthStore } from "../../store/auth.store";
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from "@angular/router";
-import { SearchBarComponent } from "../search/searchbar.component";
 
 interface NavLink {
     path: string;
@@ -12,7 +11,7 @@ interface NavLink {
 @Component({
     selector: 'app-shell',
     standalone: true,
-    imports: [RouterOutlet, RouterLink, RouterLinkActive, SearchBarComponent],
+    imports: [RouterOutlet, RouterLink, RouterLinkActive],
     templateUrl: './shell.component.html',
 })
 export class ShellComponent {
