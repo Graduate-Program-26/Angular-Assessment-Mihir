@@ -157,6 +157,8 @@ export class PlayerStore implements OnDestroy {
     }
 
     addToQueue(track: PlayerTrack): void {
+        const alreadyInQueue = this._state().queue.some(t => t.id === track.id);
+        if (alreadyInQueue) return;
         this._state.update(s => ({ ...s, queue: [...s.queue, track] }));
     }
 

@@ -1,18 +1,18 @@
 @if (store.queueOpen()) {
 
-<!-- ── Backdrop (mobile only) ─────────────────────────────── -->
-<div class="fixed inset-0 z-40 bg-black/40 md:hidden" aria-hidden="true" (click)="store.closeQueue()"></div>
+<!-- Backdrop -->
+<div class="fixed inset-0 z-40 bg-black/40" aria-hidden="true" (click)="store.closeQueue()"></div>
 
-<!-- ── Panel ─────────────────────────────────────────────── -->
+<!-- Panel -->
 <div role="dialog" aria-label="Queue" aria-modal="true" class="
-          fixed z-50 bg-background border border-border shadow-xl
-          flex flex-col
+          fixed z-50 flex flex-col
+          bg-background border border-border shadow-xl
  
-          bottom-30 left-0 right-0 max-h-72 rounded-t-xl
-          md:bottom-18 md:right-4 md:left-auto md:w-80 md:max-h-112 md:rounded-xl
+         left-0 right-0 bottom-16 max-h-[60vh] rounded-t-xl
+          md:bottom-18 md:left-auto md:right-4 md:w-80 md:max-h-112 md:rounded-xl
         ">
     <!-- Header -->
-    <div class="flex items-center justify-between border-b border-border px-4 py-3">
+    <div class="flex items-center justify-between border-b border-border px-4 py-3 shrink-0">
         <h2 class="text-sm font-semibold">Queue</h2>
         <div class="flex items-center gap-2">
             <span class="text-muted-foreground text-xs">
@@ -43,14 +43,13 @@
             <!-- Playing indicator / index -->
             <div class="w-5 shrink-0 flex items-center justify-center">
                 @if (i === store.queueIndex()) {
-                <!-- Animated playing bars -->
                 <span class="flex items-end gap-0.5 h-4" aria-label="Now playing">
                     <span class="w-0.5 bg-primary rounded-full animate-bounce"
-                        style="height: 60%; animation-delay: 0ms"></span>
+                        style="height:60%;animation-delay:0ms"></span>
                     <span class="w-0.5 bg-primary rounded-full animate-bounce"
-                        style="height: 100%; animation-delay: 150ms"></span>
+                        style="height:100%;animation-delay:150ms"></span>
                     <span class="w-0.5 bg-primary rounded-full animate-bounce"
-                        style="height: 40%; animation-delay: 300ms"></span>
+                        style="height:40%;animation-delay:300ms"></span>
                 </span>
                 } @else {
                 <span class="text-muted-foreground text-xs tabular-nums group-hover:hidden">{{ i + 1 }}</span>
@@ -64,10 +63,8 @@
             </div>
 
             <!-- Track info -->
-            <div class="min-w-0 flex-1" (click)="i !== store.queueIndex() && store.playFromQueue(i)">
-                <p class="truncate text-sm" [class.font-medium]="i === store.queueIndex()">
-                    {{ track.title }}
-                </p>
+            <div class="min-w-0 flex-1 cursor-pointer" (click)="i !== store.queueIndex() && store.playFromQueue(i)">
+                <p class="truncate text-sm" [class.font-medium]="i === store.queueIndex()">{{ track.title }}</p>
                 <p class="text-muted-foreground truncate text-xs">{{ track.artist.name }}</p>
             </div>
 
@@ -76,10 +73,12 @@
                 {{ track.duration | trackDuration }}
             </span>
 
-            <!-- Remove button (not shown for current track) -->
+            <!-- Remove button is always visible on mobile, hover on desktop -->
             @if (i !== store.queueIndex()) {
             <button (click)="store.removeFromQueue(i)" [attr.aria-label]="'Remove ' + track.title + ' from queue'"
-                class="shrink-0 rounded-full p-1 text-muted-foreground opacity-0 group-hover:opacity-100 hover:text-foreground transition focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                class="shrink-0 rounded-full p-1 text-muted-foreground hover:text-foreground transition
+                         opacity-100 md:opacity-0 md:group-hover:opacity-100
+                         focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                 <svg aria-hidden="true" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2"
                     viewBox="0 0 24 24">
                     <path d="M18 6 6 18M6 6l12 12" stroke-linecap="round" />
