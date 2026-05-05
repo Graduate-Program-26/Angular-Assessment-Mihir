@@ -98,6 +98,52 @@ export class PlayerStore implements OnDestroy {
         }
     }
 
+    skip(): void {
+        const { queue, queueIndex } = this._state();
+        if (queueIndex >= queue.length - 1) return;
+        const nextIndex = queueIndex + 1;
+        const nextTrack = queue[nextIndex];
+        this._state.update(s => ({ ...s, queueIndex: nextIndex, progress: 0, duration: 0 }));
+        this.audio.src = nextTrack.preview;
+        this.audio.currentTime = 0;
+        void this.audio.play();
+        this.startProgressTracking();
+    }
+
+    setVolume(level: number): void {
+        const clamped = Math.min(1, Math.max(0, level));
+        this.audio.volume = clamped;
+        this._state.update(s => ({ ...s, volume: clamped }));
+    }
+
+    previous(): void {
+        const { queue, queueIndex } = this._state();
+
+        if (this.audio.currentTime > 3) {
+            this.audio.currentTime = 0;
+            this._state.update(s => ({ ...s, progress: 0 }));
+            return;
+        }
+
+        if (queueIndex <= 0) return;
+        const prevIndex = queueIndex - 1;
+        const prevTrack = queue[prevIndex];
+        this._state.update(s => ({ ...s, queueIndex: prevIndex, progress: 0, duration: 0 }));
+        this.audio.src = prevTrack.preview;
+        this.audio.currentTime = 0;
+        void this.audio.play();
+        this.startProgressTracking();
+    }
+
+    seek(percent: number): void {
+        const duration = this.audio.duration;
+        if (!duration) return;
+        const time = (percent / 100) * duration;
+        this.audio.currentTime = time;
+        this._state.update(s => ({ ...s, progress: percent }));
+    }
+
+
     private startProgressTracking(): void {
         this.stopProgressTracking();
         this.progressInterval = setInterval(() => {

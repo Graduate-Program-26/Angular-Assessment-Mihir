@@ -1,6 +1,7 @@
 import { Component, inject } from "@angular/core";
 import { AuthStore } from "../../store/auth.store";
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from "@angular/router";
+import { AudioPlayerComponent } from "../audio-player/audio-player.component";
 
 interface NavLink {
     path: string;
@@ -11,7 +12,7 @@ interface NavLink {
 @Component({
     selector: 'app-shell',
     standalone: true,
-    imports: [RouterOutlet, RouterLink, RouterLinkActive],
+    imports: [RouterOutlet, RouterLink, RouterLinkActive, AudioPlayerComponent],
     templateUrl: './shell.component.html',
 })
 export class ShellComponent {
