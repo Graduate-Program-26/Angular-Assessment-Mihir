@@ -3,14 +3,7 @@
     <!-- ── Desktop sidebar -->
     <aside class="hidden w-60 shrink-0 flex-col border-r border-border bg-background md:flex"
         aria-label="Main navigation">
-        <div class="flex h-16 items-center px-6">
-            <a routerLink="/"
-                class="text-lg font-bold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded">
-                🎵 Melodify
-            </a>
-        </div>
-
-        <nav class="flex flex-col gap-1 px-3" aria-label="Site sections">
+        <nav class="flex flex-col gap-1 px-3 mt-4" aria-label="Site sections">
             @for (link of navLinks; track link.path) {
             <a [routerLink]="link.path" routerLinkActive="bg-muted text-foreground font-medium"
                 [routerLinkActiveOptions]="{ exact: link.path === '/' }"
@@ -42,10 +35,12 @@
 
     <!-- ── Main content + player -->
     <div class="flex flex-1 flex-col overflow-hidden">
-        <main class="flex-1 overflow-y-auto pb-20 md:pb-0" id="main-content" tabindex="-1">
+        <main class="flex-1 overflow-y-auto pb-28 md:pb-0" id="main-content" tabindex="-1">
             <router-outlet />
         </main>
-        <app-audio-player />
+        <div class="fixed bottom-16 left-0 right-0 z-40 md:static md:bottom-auto md:z-auto">
+            <app-audio-player />
+        </div>
     </div>
 
     <!-- Mobile bottom nav -->
