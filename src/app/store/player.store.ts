@@ -1,4 +1,4 @@
-import { computed, Injectable, signal } from "@angular/core";
+import { computed, Injectable, OnDestroy, signal } from "@angular/core";
 import { DeezerTrack } from "../models/search.models";
 import { DeezerAlbumTrack } from "../models/album.model";
 
@@ -14,7 +14,7 @@ interface PlayerState {
 }
 
 @Injectable({ providedIn: 'root' })
-export class PlayerStore {
+export class PlayerStore implements OnDestroy {
     private readonly audio = new Audio();
     private progressInterval: ReturnType<typeof setInterval> | null = null;
 
@@ -56,5 +56,67 @@ export class PlayerStore {
         const m = Math.floor(s / 60);
         const rem = s % 60;
         return `${m}:${rem.toString().padStart(2, '0')}`;
+    }
+
+    play(track: PlayerTrack, queue: PlayerTrack[] = [], queueIndex = 0): void {
+        const resolvedQueue = queue.length > 0 ? queue : [track];
+        const resolvedIndex = queue.length > 0 ? queueIndex : 0;
+
+        this._state.update(s => ({
+            ...s,
+            queue: resolvedQueue,
+            queueIndex: resolvedIndex,
+            playing: true,
+            progress: 0,
+            duration: 0,
+        }));
+
+        this.audio.src = track.preview;
+        this.audio.currentTime = 0;
+        void this.audio.play();
+        this.startProgressTracking();
+    }
+
+    pause(): void {
+        this.audio.pause();
+        this._state.update(s => ({ ...s, playing: false }));
+        this.stopProgressTracking();
+    }
+
+    resume(): void {
+        this.audio.play();
+        this._state.update(s => ({ ...s, playing: true }));
+        this.startProgressTracking;
+    }
+
+    togglePlay(): void {
+        if (this._state().playing) {
+            this.pause();
+        }
+        else {
+            this.resume();
+        }
+    }
+
+    private startProgressTracking(): void {
+        this.stopProgressTracking();
+        this.progressInterval = setInterval(() => {
+            if (!this.audio.duration) return;
+            const progress = (this.audio.currentTime / this.audio.duration) * 100;
+            this._state.update(s => ({ ...s, progress }));
+        }, 500);
+    }
+
+    private stopProgressTracking(): void {
+        if (this.progressInterval !== null) {
+            clearInterval(this.progressInterval);
+            this.progressInterval = null;
+        }
+    }
+
+    ngOnDestroy(): void {
+        this.stopProgressTracking();
+        this.audio.pause();
+        this.audio.src = '';
     }
 }
