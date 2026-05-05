@@ -57,14 +57,15 @@
     <section aria-label="Tracklist" class="mx-auto max-w-4xl px-4 py-8 md:px-8">
         <div role="grid" aria-label="Album tracks" class="flex flex-col">
             <div role="row" aria-hidden="true"
-                class="text-muted-foreground mb-2 grid grid-cols-[2rem_1fr_auto] gap-4 border-b border-border px-3 pb-2 text-xs uppercase tracking-wider">
+                class="text-muted-foreground mb-2 grid grid-cols-[2rem_1fr_auto_2rem] gap-4 border-b border-border px-3 pb-2 text-xs uppercase tracking-wider">
                 <span>#</span>
                 <span>Title</span>
                 <span>Duration</span>
+                <span></span>
             </div>
             @for (track of store.tracks(); track track.id) {
             <div role="row"
-                class="group grid grid-cols-[2rem_1fr_auto] items-center gap-4 rounded-lg px-3 py-2 transition hover:bg-muted"
+                class="group grid grid-cols-[2rem_1fr_auto_2rem] items-center gap-4 rounded-lg px-3 py-2 transition hover:bg-muted"
                 [attr.aria-label]="track.title + ' track ' + track.track_position">
 
                 <div class="relative flex items-center justify-center">
@@ -90,6 +91,15 @@
                 <span class="text-muted-foreground text-xs tabular-nums">
                     {{track.duration | trackDuration}}
                 </span>
+
+                <button [attr.aria-label]="'Add ' + track.title + ' to queue'" (click)="playerStore.addToQueue(track)"
+                    class="text-muted-foreground opacity-0 group-hover:opacity-100 hover:text-foreground transition focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-full p-1">
+                    <svg aria-hidden="true" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path d="M12 5v14M5 12h14" stroke-linecap="round" />
+                    </svg>
+                </button>
+
             </div>
             }
         </div>

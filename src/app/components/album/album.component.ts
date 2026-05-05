@@ -15,7 +15,7 @@ import { PlayerStore } from "../../store/player.store";
 export class AlbumComponent implements OnInit {
     protected readonly store = inject(AlbumStore);
     protected readonly route = inject(ActivatedRoute);
-    private readonly playerStore = inject(PlayerStore);
+    protected readonly playerStore = inject(PlayerStore);
 
     ngOnInit(): void {
         const id = Number(this.route.snapshot.paramMap.get('id'));
