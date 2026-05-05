@@ -182,6 +182,20 @@ export class PlayerStore implements OnDestroy {
         this._state.update(s => ({ ...s, queueOpen: false }));
     }
 
+    clearQueue(): void {
+        this.audio.pause();
+        this.stopProgressTracking();
+        this._state.update(s => ({
+            ...s,
+            queue: [],
+            queueIndex: 0,
+            playing: false,
+            progress: 0,
+            currentTime: 0,
+            duration: 0,
+        }));
+    }
+
     private loadTrackAtIndex(index: number): void {
         const track = this._state().queue[index];
         if (!track) return;

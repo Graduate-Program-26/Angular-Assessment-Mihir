@@ -18,6 +18,12 @@
             <span class="text-muted-foreground text-xs">
                 {{ store.queue().length }} tracks
             </span>
+            @if (store.queue().length > 0) {
+            <button (click)="store.clearQueue()" aria-label="Clear queue"
+                class="text-muted-foreground text-xs hover:text-foreground transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded px-1">
+                Clear
+            </button>
+            }
             <button (click)="store.closeQueue()" aria-label="Close queue"
                 class="rounded-full p-1 text-muted-foreground hover:text-foreground transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                 <svg aria-hidden="true" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2"
