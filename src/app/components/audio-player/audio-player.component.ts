@@ -1,10 +1,11 @@
 import { Component, inject, Injectable } from "@angular/core";
 import { PlayerStore } from "../../store/player.store";
+import { QueueComponent } from "../queue/queue.component";
 
 @Component({
     selector: 'app-audio-player',
     standalone: true,
-    imports: [],
+    imports: [QueueComponent],
     templateUrl: './audio-player.component.html'
 })
 export class AudioPlayerComponent {
