@@ -4,6 +4,7 @@ import { ActivatedRoute, RouterLink } from "@angular/router";
 import { DeezerAlbumTrack } from "../../models/album.model";
 import { DatePipe } from "@angular/common";
 import { TrackDurationPipe } from "../../pipes/track-duration.pipe";
+import { PlayerStore } from "../../store/player.store";
 
 @Component({
     selector: 'app-album',
@@ -14,6 +15,7 @@ import { TrackDurationPipe } from "../../pipes/track-duration.pipe";
 export class AlbumComponent implements OnInit {
     protected readonly store = inject(AlbumStore);
     protected readonly route = inject(ActivatedRoute);
+    protected readonly playerStore = inject(PlayerStore);
 
     ngOnInit(): void {
         const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -23,7 +25,8 @@ export class AlbumComponent implements OnInit {
     }
 
     onPreview(track: DeezerAlbumTrack): void {
-        const audio = new Audio(track.preview);
-        void audio.play();
+        const queue = this.store.tracks();
+        const index = queue.findIndex(t => t.id === track.id);
+        this.playerStore.play(track, queue, index);
     }
 }

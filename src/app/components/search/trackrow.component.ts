@@ -1,7 +1,8 @@
-import { Component, input, output } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DeezerTrack } from '../../models/search.models';
 import { TrackDurationPipe } from '../../pipes/track-duration.pipe';
+import { PlayerStore } from '../../store/player.store';
 
 @Component({
   selector: 'app-track-row',
@@ -44,11 +45,24 @@ import { TrackDurationPipe } from '../../pipes/track-duration.pipe';
             <path d="M8 5v14l11-7z" />
           </svg>
         </button>
+
+        <button
+          [attr.aria-label]="'Add ' + track().title + ' to queue'"
+          (click)="playerStore.addToQueue(track())"
+          class="shrink-0 rounded-full p-1.5 text-muted-foreground opacity-0 transition hover:bg-background hover:text-foreground group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+
+        <svg aria-hidden="true" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M12 5v14M5 12h14" stroke-linecap="round" />
+        </svg>
+        
+        </button>
       }
     </div>
   `,
 })
 export class TrackRowComponent {
+  readonly playerStore = inject(PlayerStore);
   readonly track = input.required<DeezerTrack>();
   readonly previewClicked = output<DeezerTrack>();
 }

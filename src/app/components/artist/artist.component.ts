@@ -4,6 +4,7 @@ import { TrackRowComponent } from "../search/trackrow.component";
 import { ActivatedRoute } from "@angular/router";
 import { DeezerTrack } from "../../models/search.models";
 import { ArtistStore } from "../../store/artist.store";
+import { PlayerStore } from "../../store/player.store";
 
 @Component({
     selector: 'app-artist',
@@ -13,6 +14,7 @@ import { ArtistStore } from "../../store/artist.store";
 export class ArtistComponent implements OnInit {
     protected readonly store = inject(ArtistStore);
     private readonly route = inject(ActivatedRoute);
+    private readonly playerStore = inject(PlayerStore);
 
     ngOnInit(): void {
         const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -22,8 +24,8 @@ export class ArtistComponent implements OnInit {
     }
 
     onPreview(track: DeezerTrack): void {
-        // TODO: wire to audio player store when built
-        const audio = new Audio(track.preview);
-        void audio.play();
+        const queue = this.store.topTracks();
+        const index = queue.findIndex(t => t.id === track.id);
+        this.playerStore.play(track, queue, index);
     }
 }

@@ -1,6 +1,6 @@
 <div class="flex h-screen overflow-hidden bg-background">
 
-    <!-- ── Desktop sidebar ─────────────────────────────────────── -->
+    <!-- ── Desktop sidebar -->
     <aside class="hidden w-60 shrink-0 flex-col border-r border-border bg-background md:flex"
         aria-label="Main navigation">
         <nav class="flex flex-col gap-1 px-3 mt-4" aria-label="Site sections">
@@ -18,7 +18,6 @@
             }
         </nav>
 
-        <!-- User section -->
         <div class="mt-auto border-t border-border p-3">
             @if (authStore.user(); as user) {
             <div class="flex items-center gap-3 rounded-lg px-3 py-2">
@@ -34,13 +33,17 @@
         </div>
     </aside>
 
-    <!-- Mobile Nav Bar -->
+    <!-- ── Main content + player -->
     <div class="flex flex-1 flex-col overflow-hidden">
-        <main class="flex-1 overflow-y-auto pb-20 md:pb-0" id="main-content" tabindex="-1">
+        <main class="flex-1 overflow-y-auto pb-28 md:pb-0" id="main-content" tabindex="-1">
             <router-outlet />
         </main>
+        <div class="fixed bottom-16 left-0 right-0 z-40 md:static md:bottom-auto md:z-auto">
+            <app-audio-player />
+        </div>
     </div>
 
+    <!-- Mobile bottom nav -->
     <nav class="fixed bottom-0 left-0 right-0 z-50 flex border-t border-border bg-background md:hidden"
         aria-label="Mobile navigation">
         @for (link of navLinks; track link.path) {
@@ -56,4 +59,5 @@
         </a>
         }
     </nav>
+
 </div>

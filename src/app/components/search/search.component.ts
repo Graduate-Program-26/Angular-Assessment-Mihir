@@ -5,6 +5,8 @@ import { SearchBarComponent } from "./searchbar.component";
 import { ArtistCardComponent } from "./artistcard.component";
 import { AlbumCardComponent } from "./albumcard.component";
 import { TrackRowComponent } from "./trackrow.component";
+import { AudioPlayerComponent } from "../audio-player/audio-player.component";
+import { PlayerStore } from "../../store/player.store";
 
 @Component({
   selector: 'app-search',
@@ -128,10 +130,13 @@ import { TrackRowComponent } from "./trackrow.component";
     SearchBarComponent,
     ArtistCardComponent,
     AlbumCardComponent,
-    TrackRowComponent,]
+    TrackRowComponent,
+    //AudioPlayerComponent
+  ]
 })
 export class SearchComponent {
   protected readonly store = inject(SearchStore);
+  private readonly playerStore = inject(PlayerStore);
 
   protected readonly tabs: { key: SearchTab; label: string }[] = [
     { key: 'artists', label: 'Artists' },
@@ -140,8 +145,8 @@ export class SearchComponent {
   ];
 
   onPreview(track: DeezerTrack): void {
-    // TODO: wire up to audio player store when built
-    const audio = new Audio(track.preview);
-    audio.play();
+    const queue = this.store.results().tracks;
+    const index = queue.findIndex(t => t.id === track.id);
+    this.playerStore.play(track, queue, index);
   }
 }
