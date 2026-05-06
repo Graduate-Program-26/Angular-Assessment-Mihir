@@ -5,10 +5,11 @@ import { ActivatedRoute } from "@angular/router";
 import { DeezerTrack } from "../../models/search.models";
 import { ArtistStore } from "../../store/artist.store";
 import { PlayerStore } from "../../store/player.store";
+import { AddToPlaylistComponent } from "../playlists/add-to-playlist.component";
 
 @Component({
     selector: 'app-artist',
-    imports: [AlbumCardComponent, TrackRowComponent],
+    imports: [AlbumCardComponent, TrackRowComponent, AddToPlaylistComponent],
     templateUrl: 'artist.component.html',
 })
 export class ArtistComponent implements OnInit {
