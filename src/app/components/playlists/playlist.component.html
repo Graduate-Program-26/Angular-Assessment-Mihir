@@ -75,7 +75,7 @@
             <input #renameInput [value]="playlist.name" (keydown.enter)="submitRename(playlist.id, renameInput.value)"
                 (keydown.escape)="cancelEdit()" (blur)="submitRename(playlist.id, renameInput.value)"
                 class="w-full rounded border border-border bg-background px-2 py-1 text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                aria-label="Rename playlist" autofocus />
+                aria-label="Rename playlist" />
             } @else {
             <a [routerLink]="['/playlists', playlist.id]"
                 class="block truncate font-medium hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded">
