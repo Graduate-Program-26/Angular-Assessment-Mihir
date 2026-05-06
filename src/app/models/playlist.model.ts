@@ -4,6 +4,7 @@ export interface PlaylistTrack {
     duration: number;
     preview: string;
     artistId: number;
+    artistName: string;
     albumId?: number;
     albumTitle?: string;
     albumCover?: string;

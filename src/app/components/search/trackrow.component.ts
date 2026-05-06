@@ -3,11 +3,12 @@ import { RouterLink } from '@angular/router';
 import { DeezerTrack } from '../../models/search.models';
 import { TrackDurationPipe } from '../../pipes/track-duration.pipe';
 import { PlayerStore } from '../../store/player.store';
+import { AddToPlaylistComponent } from "../playlists/add-to-playlist.component";
 
 @Component({
   selector: 'app-track-row',
   standalone: true,
-  imports: [RouterLink, TrackDurationPipe],
+  imports: [RouterLink, TrackDurationPipe, AddToPlaylistComponent],
   template: `
     <div
       class="group flex items-center gap-4 rounded-lg px-3 py-2 transition hover:bg-muted"
@@ -15,7 +16,7 @@ import { PlayerStore } from '../../store/player.store';
     >
     
       <img
-        [src]="track().album.cover_small"
+        [src]="track().album.cover_medium"
         [alt]="'Cover for ' + track().album.title"
         class="h-10 w-10 shrink-0 rounded object-cover"
         loading="lazy"
@@ -57,7 +58,9 @@ import { PlayerStore } from '../../store/player.store';
         </svg>
         
         </button>
+
       }
+      <app-add-to-playlist [track]="track()" />
     </div>
   `,
 })
