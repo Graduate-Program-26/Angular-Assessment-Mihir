@@ -47,6 +47,7 @@
                         {{ i + 1 }}
                     </span>
                     <app-track-row class="flex-1" [track]="track" (previewClicked)="onPreview($event)" />
+                    <app-add-to-playlist [track]="track" />
                 </div>
                 }
             </div>

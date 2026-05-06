@@ -56,6 +56,13 @@ export const routes: Routes = [
                         m => m.PlaylistsComponent
                     ),
             },
+            {
+                path: 'playlists/:id',
+                loadComponent: () =>
+                    import('./components/playlists/playlist-detail.component').then(
+                        m => m.PlaylistDetailComponent
+                    )
+            }
         ],
     },
     { path: '**', redirectTo: '' },
