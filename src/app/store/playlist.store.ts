@@ -1,5 +1,5 @@
 import { computed, inject, Injectable, signal } from "@angular/core";
-import { PlaylistState, PlaylistTrack } from "../models/playlist.model";
+import { Playlist, PlaylistState, PlaylistTrack } from "../models/playlist.model";
 import { IndexedDbService } from "../services/indexeddb.service";
 
 function generateId(): string {
@@ -53,28 +53,80 @@ export class PlaylistStore {
         void this.rehydrate();
     }
 
-    createPlaylist() {
-
+    createPlaylist(name: string): Playlist {
+        const playlist: Playlist = {
+            id: generateId(),
+            name: name.trim() || 'New Playlist',
+            createdAt: Date.now(),
+            updatedAt: Date.now(),
+            tracks: [],
+        };
+        this._state.update(s => ({ ...s, playlists: [...s.playlists, playlist] }));
+        void this.db.save(playlist);
+        return playlist;
     }
 
-    renamePlaylist() {
-
+    renamePlaylist(id: string, name: string): void {
+        const trimmed = name.trim();
+        if (!trimmed) return;
+        this._state.update(s => ({
+            ...s,
+            playlists: s.playlists.map(p =>
+                p.id === id ? { ...p, name: trimmed, updatedAt: Date.now() } : p
+            ),
+        }));
+        const updated = this._state().playlists.find(p => p.id === id);
+        if (updated) void this.db.save(updated);
     }
 
-    deletePlaylist() {
-
+    deletePlaylist(id: string): void {
+        this._state.update(s => ({
+            ...s,
+            playlists: s.playlists.filter(p => p.id !== id),
+            activePlaylistId: s.activePlaylistId === id ? null : s.activePlaylistId,
+        }));
+        void this.db.delete(id);
     }
 
-    addTrack() {
+    addTrack(playlistId: string, track: PlaylistTrack): void {
+        const playlist = this._state().playlists.find(p => p.id === playlistId);
+        if (!playlist) return;
 
+        const alreadyAdded = playlist.tracks.some(t => t.id === track.id);
+        if (alreadyAdded) return;
+
+        const updated: Playlist = {
+            ...playlist,
+            tracks: [...playlist.tracks, { ...track, addedAt: Date.now() }],
+            updatedAt: Date.now(),
+        };
+
+        this._state.update(s => ({
+            ...s,
+            playlists: s.playlists.map(p => (p.id === playlistId ? updated : p)),
+        }));
+        void this.db.save(updated);
     }
 
-    removeTrack() {
+    removeTrack(playlistId: string, trackId: number): void {
+        const playlist = this._state().playlists.find(p => p.id === playlistId);
+        if (!playlist) return;
 
+        const updated: Playlist = {
+            ...playlist,
+            tracks: playlist.tracks.filter(t => t.id !== trackId),
+            updatedAt: Date.now(),
+        };
+
+        this._state.update(s => ({
+            ...s,
+            playlists: s.playlists.map(p => (p.id === playlistId ? updated : p)),
+        }));
+        void this.db.save(updated);
     }
 
-    setActivePlaylist() {
-
+    setActivePlaylist(id: string | null): void {
+        this._state.update(s => ({ ...s, activePlaylistId: id }));
     }
 
     private async rehydrate(): Promise<void> {
