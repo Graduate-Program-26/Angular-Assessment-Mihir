@@ -94,11 +94,15 @@ import { HlmBreadcrumb, HlmBreadcrumbList, HlmBreadcrumbItem, HlmBreadcrumbLink,
             } @else {
               <h1
                 class="text-2xl font-bold leading-tight md:text-3xl cursor-pointer hover:underline"
+                tabindex="0"
+                role="button"
                 (click)="renaming.set(true)"
+                (keydown.enter)="renaming.set(true)"
+                (keydown.space)="renaming.set(true)"
                 title="Click to rename"
               >
-                {{ playlist()!.name }}
-              </h1>
+              {{ playlist()!.name }}
+            </h1>
             }
 
             <div class="text-muted-foreground flex items-center gap-2 text-sm">
