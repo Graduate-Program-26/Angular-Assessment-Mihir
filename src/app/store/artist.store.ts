@@ -36,6 +36,8 @@ export class ArtistStore {
     readonly loading = computed(() => this._state().loading);
     readonly error = computed(() => this._state().error);
 
+    readonly albumSort = signal<'newest' | 'oldest' | 'az' | 'za'>('newest');
+
     readonly fanCount = computed(() => {
         const fans = this._state().artist?.nb_fan ?? 0;
         if (fans >= 1_000_000) return `${(fans / 1_000_000).toFixed(1)}M`;
@@ -46,10 +48,36 @@ export class ArtistStore {
     readonly albumCount = computed(() => this._state().artist?.nb_album ?? 0);
 
     readonly sortedAlbums = computed(() => {
-        return [...this._state().albums].sort((a, b) =>
-            new Date(b.release_date).getTime() -
-            new Date(a.release_date).getTime()
-        );
+        const albums = this._state().albums;
+        const sort = this.albumSort();
+
+        const copy = [...albums];
+
+        switch (sort) {
+            case 'newest':
+                return copy.sort(
+                    (a, b) =>
+                        new Date(b.release_date).getTime() -
+                        new Date(a.release_date).getTime()
+                );
+
+            case 'oldest':
+                return copy.sort(
+                    (a, b) =>
+                        new Date(a.release_date).getTime() -
+                        new Date(b.release_date).getTime()
+                );
+
+            case 'az':
+                return copy.sort((a, b) =>
+                    a.title.localeCompare(b.title)
+                );
+
+            case 'za':
+                return copy.sort((a, b) =>
+                    b.title.localeCompare(a.title)
+                );
+        }
     });
 
     readonly paginatedAlbums = computed(() => {
@@ -106,6 +134,10 @@ export class ArtistStore {
         if (current >= total) return;
 
         this.page.update(p => p + 1);
+    }
+
+    setAlbumSort(sort: 'newest' | 'oldest' | 'az' | 'za'): void {
+        this.albumSort.set(sort);
     }
 
     private setPageData(data: ArtistPageData): void {
