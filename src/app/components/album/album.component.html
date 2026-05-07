@@ -17,6 +17,39 @@
     <section aria-label="Album info" class="relative overflow-hidden">
 
         <div class="absolute inset-0 z-0">
+            <nav class="absolute top-0 left-0 z-50 w-full px-4 pt-4 md:px-8" aria-label="Breadcrumb" hlmBreadcrumb>
+                <ol hlmBreadcrumbList>
+
+                    <li hlmBreadcrumbItem>
+                        <a hlmBreadcrumbLink link="/">Home</a>
+                    </li>
+
+                    <li hlmBreadcrumbSeparator></li>
+
+                    <li hlmBreadcrumbItem>
+                        <a hlmBreadcrumbLink link="/search">Search</a>
+                    </li>
+
+                    <li hlmBreadcrumbSeparator></li>
+
+                    @if (store.album(); as album) {
+                    <li hlmBreadcrumbItem>
+                        <a hlmBreadcrumbLink [link]="'/artist/' + album.artist.id">
+                            {{ album.artist.name }}
+                        </a>
+                    </li>
+                    }
+
+                    <li hlmBreadcrumbSeparator></li>
+
+                    <li hlmBreadcrumbItem>
+                        <span hlmBreadcrumbPage>
+                            {{ store.album()?.title ?? 'Album' }}
+                        </span>
+                    </li>
+
+                </ol>
+            </nav>
             <img [src]="album.cover_big" [alt]="''" aria-hidden="true"
                 class="h-full w-full object-cover object-center scale-110 blur-2xl opacity-40" />
             <div class="absolute inset-0 bg-linear-to-b from-background/20 via-background/60 to-background"></div>

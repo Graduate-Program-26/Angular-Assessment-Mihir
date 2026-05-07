@@ -6,12 +6,25 @@ import { DatePipe } from "@angular/common";
 import { TrackDurationPipe } from "../../pipes/track-duration.pipe";
 import { PlayerStore } from "../../store/player.store";
 import { PlaylistStore } from "../../store/playlist.store";
+import {
+    HlmBreadcrumb,
+    HlmBreadcrumbList,
+    HlmBreadcrumbItem,
+    HlmBreadcrumbLink,
+    HlmBreadcrumbSeparator,
+    HlmBreadcrumbPage,
+} from '@spartan-ng/helm/breadcrumb';
 
 @Component({
     selector: 'app-album',
     standalone: true,
     templateUrl: 'album.component.html',
-    imports: [RouterLink, DatePipe, TrackDurationPipe],
+    imports: [RouterLink, DatePipe, TrackDurationPipe, HlmBreadcrumb,
+        HlmBreadcrumbList,
+        HlmBreadcrumbItem,
+        HlmBreadcrumbLink,
+        HlmBreadcrumbSeparator,
+        HlmBreadcrumbPage,],
 })
 export class AlbumComponent implements OnInit {
     protected readonly store = inject(AlbumStore);
