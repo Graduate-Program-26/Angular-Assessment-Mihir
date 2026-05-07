@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from "@angular/core";
+import { Component, effect, inject, OnInit } from "@angular/core";
 import { AlbumCardComponent } from "../search/albumcard.component";
 import { TrackRowComponent } from "../search/trackrow.component";
 import { ActivatedRoute } from "@angular/router";
@@ -6,6 +6,7 @@ import { DeezerTrack } from "../../models/search.models";
 import { ArtistStore } from "../../store/artist.store";
 import { PlayerStore } from "../../store/player.store";
 import { AddToPlaylistComponent } from "../playlists/add-to-playlist.component";
+import { RecentStore } from "../../store/recent.store";
 
 @Component({
     selector: 'app-artist',
@@ -16,6 +17,14 @@ export class ArtistComponent implements OnInit {
     protected readonly store = inject(ArtistStore);
     private readonly route = inject(ActivatedRoute);
     private readonly playerStore = inject(PlayerStore);
+    private readonly recentStore = inject(RecentStore);
+
+    constructor() {
+        effect(() => {
+            const artist = this.store.artist();
+            if (artist) this.recentStore.trackArtistView(artist);
+        });
+    }
 
     ngOnInit(): void {
         const id = Number(this.route.snapshot.paramMap.get('id'));

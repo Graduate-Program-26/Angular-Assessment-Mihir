@@ -1,17 +1,126 @@
-<div class="mx-auto max-w-4xl px-4 py-16 md:px-8">
-    <div class="flex flex-col items-center gap-6 text-center">
+<main class="py-8 space-y-10" aria-label="Home">
 
-        <div class="space-y-2">
-            <h1 class="text-4xl font-bold tracking-tight">Welcome to Music</h1>
-            <p class="text-muted-foreground text-lg">
-                Discover artists, explore albums, and build your playlists.
-            </p>
-        </div>
-
-        <a routerLink="/search"
-            class="rounded-full bg-primary px-8 py-3 text-sm font-semibold text-primary-foreground transition hover:opacity-90 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-            Start searching
-        </a>
-
+    <!-- Greeting -->
+    <div class="px-4 md:px-8">
+        <h1 class="text-2xl font-bold md:text-3xl">
+            {{ greeting() }}@if (authStore.user(); as user) {, {{ user.name.split(' ')[0] }}}
+        </h1>
+        <p class="text-muted-foreground mt-1 text-sm">Here's what's trending today.</p>
     </div>
-</div>
+
+    <!-- Recently played -->
+    @if (recentStore.recentTracks().length > 0) {
+    <app-horizontal-scroll-row title="Recently Played">
+        @for (track of recentStore.recentTracks(); track track.id) {
+        <button (click)="playRecentTrack(track)"
+            class="group flex w-40 shrink-0 flex-col gap-2 rounded-xl p-2 text-left transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            [attr.aria-label]="'Play ' + track.title + ' by ' + track.artistName">
+            <div class="relative w-full overflow-hidden rounded-lg">
+                <img [src]="track.albumCover || 'assets/placeholder.png'" [alt]="track.title"
+                    class="aspect-square w-full object-cover transition group-hover:scale-105" loading="lazy" />
+                <div
+                    class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition group-hover:opacity-100">
+                    <svg aria-hidden="true" class="h-8 w-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                    </svg>
+                </div>
+            </div>
+            <div class="min-w-0 px-1">
+                <p class="truncate text-sm font-medium">{{ track.title }}</p>
+                <p class="text-muted-foreground truncate text-xs">{{ track.artistName }}</p>
+            </div>
+        </button>
+        }
+    </app-horizontal-scroll-row>
+    }
+
+    <!-- Recently viewed artists -->
+    @if (recentStore.recentArtists().length > 0) {
+    <app-horizontal-scroll-row title="Recently Viewed Artists">
+        @for (artist of recentStore.recentArtists(); track artist.id) {
+        <a [routerLink]="['/artist', artist.id]"
+            class="group flex w-32 shrink-0 flex-col items-center gap-2 rounded-xl p-2 transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            [attr.aria-label]="artist.name">
+            <img [src]="artist.picture_medium" [alt]="artist.name"
+                class="h-24 w-24 rounded-full object-cover ring-1 ring-border transition group-hover:scale-105"
+                loading="lazy" />
+            <p class="truncate text-center text-sm font-medium">{{ artist.name }}</p>
+        </a>
+        }
+    </app-horizontal-scroll-row>
+    }
+
+    <!-- Loading -->
+    @if (homeStore.loading()) {
+    <div role="status" aria-label="Loading charts" class="flex justify-center py-12">
+        <svg class="h-6 w-6 animate-spin text-muted-foreground" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+        </svg>
+    </div>
+
+    } @else if (homeStore.error()) {
+    <div role="alert" class="px-4 md:px-8">
+        <p class="text-destructive text-sm">Failed to load charts. Please refresh.</p>
+    </div>
+
+    } @else {
+
+    <!-- Top Tracks -->
+    @if (homeStore.topTracks().length > 0) {
+    <app-horizontal-scroll-row title="Top Tracks">
+        @for (track of homeStore.topTracks(); track track.id) {
+        <button (click)="playChartTrack(track)"
+            class="group flex w-40 shrink-0 flex-col gap-2 rounded-xl p-2 text-left transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            [attr.aria-label]="'Play ' + track.title + ' by ' + track.artist.name">
+            <div class="relative w-full overflow-hidden rounded-lg">
+                <img [src]="track.album.cover_medium" [alt]="track.title"
+                    class="aspect-square w-full object-cover transition group-hover:scale-105" loading="lazy" />
+                <div
+                    class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition group-hover:opacity-100">
+                    <svg aria-hidden="true" class="h-8 w-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                    </svg>
+                </div>
+            </div>
+            <div class="min-w-0 px-1">
+                <p class="truncate text-sm font-medium">{{ track.title }}</p>
+                <p class="text-muted-foreground truncate text-xs">{{ track.artist.name }}</p>
+            </div>
+        </button>
+        }
+    </app-horizontal-scroll-row>
+    }
+
+    <!-- Top Artists -->
+    @if (homeStore.topArtists().length > 0) {
+    <app-horizontal-scroll-row title="Top Artists">
+        @for (artist of homeStore.topArtists(); track artist.id) {
+        <a [routerLink]="['/artist', artist.id]"
+            class="group flex w-32 shrink-0 flex-col items-center gap-2 rounded-xl p-2 transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            [attr.aria-label]="artist.name">
+            <img [src]="artist.picture_medium" [alt]="artist.name"
+                class="h-24 w-24 rounded-full object-cover ring-1 ring-border transition group-hover:scale-105"
+                loading="lazy" />
+            <p class="truncate text-center text-sm font-medium">{{ artist.name }}</p>
+            <p class="text-muted-foreground text-xs">
+                {{ artist.nb_fan | number }} fans
+            </p>
+        </a>
+        }
+    </app-horizontal-scroll-row>
+    }
+
+    <!-- Top Albums -->
+    @if (homeStore.topAlbums().length > 0) {
+    <app-horizontal-scroll-row title="Top Albums">
+        @for (album of homeStore.topAlbums(); track album.id) {
+        <div class="w-40 shrink-0">
+            <app-album-card [album]="album" />
+        </div>
+        }
+    </app-horizontal-scroll-row>
+    }
+    }
+
+</main>

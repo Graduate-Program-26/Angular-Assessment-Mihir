@@ -60,7 +60,7 @@ import { PlaylistTrack } from '../../models/playlist.model';
                 (blur)="submitRename(renameInput.value)"
                 class="rounded border border-border bg-background px-2 py-1 text-2xl font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 aria-label="Rename playlist"
-                autofocus
+               
               />
             } @else {
               <h1
