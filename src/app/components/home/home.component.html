@@ -18,12 +18,6 @@
             <div class="relative w-full overflow-hidden rounded-lg">
                 <img [src]="track.albumCover || 'assets/placeholder.png'" [alt]="track.title"
                     class="aspect-square w-full object-cover transition group-hover:scale-105" loading="lazy" />
-                <div
-                    class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition group-hover:opacity-100">
-                    <svg aria-hidden="true" class="h-8 w-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z" />
-                    </svg>
-                </div>
             </div>
             <div class="min-w-0 px-1">
                 <p class="truncate text-sm font-medium">{{ track.title }}</p>
@@ -76,12 +70,6 @@
             <div class="relative w-full overflow-hidden rounded-lg">
                 <img [src]="track.album.cover_medium" [alt]="track.title"
                     class="aspect-square w-full object-cover transition group-hover:scale-105" loading="lazy" />
-                <div
-                    class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition group-hover:opacity-100">
-                    <svg aria-hidden="true" class="h-8 w-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z" />
-                    </svg>
-                </div>
             </div>
             <div class="min-w-0 px-1">
                 <p class="truncate text-sm font-medium">{{ track.title }}</p>
@@ -103,9 +91,6 @@
                 class="h-24 w-24 rounded-full object-cover ring-1 ring-border transition group-hover:scale-105"
                 loading="lazy" />
             <p class="truncate text-center text-sm font-medium">{{ artist.name }}</p>
-            <p class="text-muted-foreground text-xs">
-                {{ artist.nb_fan | number }} fans
-            </p>
         </a>
         }
     </app-horizontal-scroll-row>

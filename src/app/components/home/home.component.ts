@@ -17,7 +17,6 @@ import { DecimalPipe } from "@angular/common";
         RouterLink,
         HorizontalScrollRowComponent,
         AlbumCardComponent,
-        DecimalPipe
     ],
     templateUrl: './home.component.html'
 })
