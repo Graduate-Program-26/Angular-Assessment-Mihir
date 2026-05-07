@@ -6,10 +6,10 @@ import { TrackDurationPipe } from '../../pipes/track-duration.pipe';
 import { PlaylistTrack } from '../../models/playlist.model';
 
 @Component({
-    selector: 'app-playlist-detail',
-    standalone: true,
-    imports: [RouterLink, TrackDurationPipe],
-    template: `
+  selector: 'app-playlist-detail',
+  standalone: true,
+  imports: [RouterLink, TrackDurationPipe],
+  template: `
     <main aria-label="Playlist detail" class="mx-auto max-w-4xl px-4 py-8 md:px-8">
 
       @if (store.loading()) {
@@ -27,7 +27,7 @@ import { PlaylistTrack } from '../../models/playlist.model';
         </div>
 
       } @else {
-        <!-- ── Header -->
+        <!-- Header -->
         <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end">
 
           <!-- Cover -->
@@ -101,7 +101,7 @@ import { PlaylistTrack } from '../../models/playlist.model';
           </div>
         </div>
 
-        <!-- ── Tracklist -->
+        <!-- Tracklist -->
         @if (playlist()!.tracks.length === 0) {
           <div class="flex flex-col items-center gap-3 py-16 text-center">
             <p class="text-muted-foreground text-sm">No tracks yet — add some from search or artist pages.</p>
@@ -129,7 +129,7 @@ import { PlaylistTrack } from '../../models/playlist.model';
                   <span class="text-muted-foreground tabular-nums text-sm transition"
                     [class.opacity-0]="!!track.preview"
                     aria-hidden="true">
-                    {{ i + 1 }}
+                    {{ $index + 1 }}
                   </span>
                   @if (track.preview) {
                     <button
@@ -181,77 +181,76 @@ import { PlaylistTrack } from '../../models/playlist.model';
   `,
 })
 export class PlaylistDetailComponent implements OnInit {
-    protected readonly store = inject(PlaylistStore);
-    private readonly playerStore = inject(PlayerStore);
-    private readonly route = inject(ActivatedRoute);
-    private readonly router = inject(Router);
+  protected readonly store = inject(PlaylistStore);
+  private readonly playerStore = inject(PlayerStore);
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
 
-    protected readonly renaming = signal(false);
-    protected readonly playlist = this.store.activePlaylist;
+  protected readonly renaming = signal(false);
+  protected readonly playlist = this.store.activePlaylist;
 
-    protected readonly covers = (): string[] => {
-        const p = this.playlist();
-        if (!p) return [];
-        return p.tracks
-            .filter(t => t.albumCover)
-            .slice(0, 4)
-            .map(t => t.albumCover!);
-    };
+  protected readonly covers = (): string[] => {
+    const p = this.playlist();
+    if (!p) return [];
+    return p.tracks
+      .filter(t => t.albumCover)
+      .slice(0, 4)
+      .map(t => t.albumCover!);
+  };
 
-    ngOnInit(): void {
-        const id = this.route.snapshot.paramMap.get('id');
-        this.store.setActivePlaylist(id);
-    }
+  ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.store.setActivePlaylist(id);
+  }
 
-    submitRename(name: string): void {
-        const id = this.playlist()?.id;
-        if (id) this.store.renamePlaylist(id, name);
-        this.renaming.set(false);
-    }
+  submitRename(name: string): void {
+    const id = this.playlist()?.id;
+    if (id) this.store.renamePlaylist(id, name);
+    this.renaming.set(false);
+  }
 
-    removeTrack(trackId: number): void {
-        const id = this.playlist()?.id;
-        if (id) this.store.removeTrack(id, trackId);
-    }
+  removeTrack(trackId: number): void {
+    const id = this.playlist()?.id;
+    if (id) this.store.removeTrack(id, trackId);
+  }
 
-    playAll(): void {
-        const tracks = this.playlist()?.tracks ?? [];
-        if (tracks.length === 0) return;
-        // Converting PlaylistTrack to PlayerTrack shape for the player store
-        const playerTracks = tracks.map(t => ({
-            id: t.id,
-            title: t.title,
-            duration: t.duration,
-            preview: t.preview,
-            artist: { id: t.artistId, name: t.artistName, picture_small: '' },
-            album: { id: t.albumId ?? 0, title: t.albumTitle ?? '', cover_medium: t.albumCover ?? '' },
-            link: '',
-            rank: 0,
-            type: 'track' as const,
-        }));
-        this.playerStore.play(playerTracks[0], playerTracks, 0);
-    }
+  playAll(): void {
+    const tracks = this.playlist()?.tracks ?? [];
+    if (tracks.length === 0) return;
+    const playerTracks = tracks.map(t => ({
+      id: t.id,
+      title: t.title,
+      duration: t.duration,
+      preview: t.preview,
+      artist: { id: t.artistId, name: t.artistName, picture_small: '' },
+      album: { id: t.albumId ?? 0, title: t.albumTitle ?? '', cover_medium: t.albumCover ?? '' },
+      link: '',
+      rank: 0,
+      type: 'track' as const,
+    }));
+    this.playerStore.play(playerTracks[0], playerTracks, 0);
+  }
 
-    playTrack(track: PlaylistTrack, index: number): void {
-        const tracks = this.playlist()?.tracks ?? [];
-        const playerTracks = tracks.map(t => ({
-            id: t.id,
-            title: t.title,
-            duration: t.duration,
-            preview: t.preview,
-            artist: { id: t.artistId, name: t.artistName, picture_small: '' },
-            album: { id: t.albumId ?? 0, title: t.albumTitle ?? '', cover_medium: t.albumCover ?? '' },
-            link: '',
-            rank: 0,
-            type: 'track' as const,
-        }));
-        this.playerStore.play(playerTracks[index], playerTracks, index);
-    }
+  playTrack(track: PlaylistTrack, index: number): void {
+    const tracks = this.playlist()?.tracks ?? [];
+    const playerTracks = tracks.map(t => ({
+      id: t.id,
+      title: t.title,
+      duration: t.duration,
+      preview: t.preview,
+      artist: { id: t.artistId, name: t.artistName, picture_small: '' },
+      album: { id: t.albumId ?? 0, title: t.albumTitle ?? '', cover_medium: t.albumCover ?? '' },
+      link: '',
+      rank: 0,
+      type: 'track' as const,
+    }));
+    this.playerStore.play(playerTracks[index], playerTracks, index);
+  }
 
-    confirmDelete(): void {
-        const name = this.playlist()?.name;
-        if (!confirm(`Delete "${name}"? This cannot be undone.`)) return;
-        this.store.deletePlaylist(this.playlist()!.id);
-        void this.router.navigate(['/playlists']);
-    }
+  confirmDelete(): void {
+    const name = this.playlist()?.name;
+    if (!confirm(`Delete "${name}"? This cannot be undone.`)) return;
+    this.store.deletePlaylist(this.playlist()!.id);
+    void this.router.navigate(['/playlists']);
+  }
 }

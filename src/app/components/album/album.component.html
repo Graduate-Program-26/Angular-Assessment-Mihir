@@ -14,41 +14,54 @@
     </div>
     }
     @else if(store.album(); as album){
-    <section aria-label="Album info" class="bg-muted/40 border-b border-border">
-        <div class="mx-auto flex max-w-4xl flex-col gap-6 px-4 py-8 sm:flex-row sm:items-end md:px-8">
-            <img [src]="album.cover_big" [alt]="'Cover art for ' + album.title"
-                class="h-44 w-44 shrink-0 rounded-xl object-cover shadow-lg ring-1 ring-border sm:h-52 sm:w-52" />
+    <section aria-label="Album info" class="relative overflow-hidden">
 
+        <div class="absolute inset-0 z-0">
+            <img [src]="album.cover_big" [alt]="''" aria-hidden="true"
+                class="h-full w-full object-cover object-center scale-110 blur-2xl opacity-40" />
+            <div class="absolute inset-0 bg-linear-to-b from-background/20 via-background/60 to-background"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="relative z-10 mx-auto flex max-w-4xl flex-col gap-6 px-4 py-10 sm:flex-row sm:items-end md:px-8">
+
+            <!-- Cover art -->
+            <img [src]="album.cover_big" [alt]="'Cover art for ' + album.title"
+                class="h-44 w-44 shrink-0 rounded-xl object-cover shadow-2xl ring-1 ring-border sm:h-52 sm:w-52" />
+
+            <!-- Meta -->
             <div class="space-y-2">
                 <p class="text-muted-foreground text-xs uppercase tracking-widest">
-                    {{album.record_type}}
+                    {{ album.record_type }}
                 </p>
-                <h1 class="text-3xl font-bold leading-tight md:text-4xl">{{album.title}}</h1>
+                <h1 class="text-3xl font-bold leading-tight md:text-4xl">{{ album.title }}</h1>
 
                 <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-                    <a [routerLink]="['/artist', album.artist.id]"
-                        class="font-medium hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring">
-                        {{album.artist.name}}
+                    <a [routerLink]="['/artist', album.artist.id]" class="font-medium hover:underline focus-visible:outline-none focus-visible:ring-1
+                    focus-visible:ring-ring">
+                        {{ album.artist.name }}
                     </a>
                     <span aria-hidden="true" class="text-muted-foreground">·</span>
-                    <span class="text-muted-foreground">
-                        {{ album.release_date | date: 'yyyy' }}
-                    </span>
+                    <span class="text-muted-foreground">{{ album.release_date | date: 'yyyy' }}</span>
                     <span aria-hidden="true" class="text-muted-foreground">·</span>
-                    <span class="text-muted-foreground">
-                        {{ album.nb_tracks }} songs
-                    </span>
+                    <span class="text-muted-foreground">{{ album.nb_tracks }} songs</span>
                     <span aria-hidden="true" class="text-muted-foreground">·</span>
                     <span class="text-muted-foreground">{{ store.totalDuration() }}</span>
                 </div>
+
                 @if (store.genres().length > 0) {
                 <div class="flex flex-wrap gap-2 pt-1" aria-label="Genres">
                     @for (genre of store.genres(); track genre.id) {
-                    <span class="bg-muted text-muted-foreground rounded-full px-3 py-0.5 text-xs">
+                    <span
+                        class="bg-background/60 text-muted-foreground rounded-full px-3 py-0.5 text-xs backdrop-blur-sm">
                         {{ genre.name }}
                     </span>
                     }
                 </div>
+                }
+
+                @if (album.label) {
+                <p class="text-muted-foreground text-xs">{{ album.label }}</p>
                 }
             </div>
         </div>
