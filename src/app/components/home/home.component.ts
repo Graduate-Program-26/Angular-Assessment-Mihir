@@ -2,13 +2,11 @@ import { Component, OnInit, inject } from "@angular/core";
 import { RouterLink } from "@angular/router";
 import { RecentTrack } from "../../models/home.models";
 import { DeezerTrack } from "../../models/search.models";
-import { TrackDurationPipe } from "../../pipes/track-duration.pipe";
 import { AuthStore } from "../../store/auth.store";
 import { HomeStore } from "../../store/home.store";
 import { PlayerStore } from "../../store/player.store";
 import { RecentStore } from "../../store/recent.store";
 import { AlbumCardComponent } from "../search/albumcard.component";
-import { ArtistCardComponent } from "../search/artistcard.component";
 import { HorizontalScrollRowComponent } from "./horizontal-scroll-row.component";
 import { DecimalPipe } from "@angular/common";
 

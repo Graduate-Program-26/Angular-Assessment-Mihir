@@ -1,4 +1,4 @@
-import { Component, inject, Injectable } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { PlayerStore } from "../../store/player.store";
 import { QueueComponent } from "../queue/queue.component";
 
