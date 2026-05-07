@@ -4,14 +4,43 @@ import { PlaylistStore } from '../../store/playlist.store';
 import { PlayerStore } from '../../store/player.store';
 import { TrackDurationPipe } from '../../pipes/track-duration.pipe';
 import { PlaylistTrack } from '../../models/playlist.model';
+import { HlmBreadcrumb, HlmBreadcrumbList, HlmBreadcrumbItem, HlmBreadcrumbLink, HlmBreadcrumbSeparator, HlmBreadcrumbPage } from '@spartan-ng/helm/breadcrumb';
+
 
 @Component({
   selector: 'app-playlist-detail',
   standalone: true,
-  imports: [RouterLink, TrackDurationPipe],
+  imports: [RouterLink, TrackDurationPipe, HlmBreadcrumb,
+    HlmBreadcrumbList,
+    HlmBreadcrumbItem,
+    HlmBreadcrumbLink,
+    HlmBreadcrumbSeparator,
+    HlmBreadcrumbPage,],
   template: `
     <main aria-label="Playlist detail" class="mx-auto max-w-4xl px-4 py-8 md:px-8">
+      <nav class="mb-6" aria-label="Breadcrumb" hlmBreadcrumb>
+        <ol hlmBreadcrumbList>
 
+          <li hlmBreadcrumbItem>
+            <a hlmBreadcrumbLink link="/">Home</a>
+          </li>
+
+          <li hlmBreadcrumbSeparator></li>
+
+          <li hlmBreadcrumbItem>
+            <a hlmBreadcrumbLink link="/playlists">Playlists</a>
+          </li>
+
+          <li hlmBreadcrumbSeparator></li>
+
+          <li hlmBreadcrumbItem>
+            <span hlmBreadcrumbPage>
+              {{ playlist()?.name ?? 'Playlist' }}
+            </span>
+          </li>
+
+        </ol>
+  </nav>
       @if (store.loading()) {
         <div role="status" aria-label="Loading playlist" class="animate-pulse space-y-4">
           <div class="bg-muted h-8 w-48 rounded"></div>
@@ -29,7 +58,7 @@ import { PlaylistTrack } from '../../models/playlist.model';
       } @else {
         <!-- Header -->
         <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end">
-
+        
           <!-- Cover -->
           <div class="h-36 w-36 shrink-0 overflow-hidden rounded-xl bg-muted shadow-lg ring-1 ring-border">
             @if (covers().length > 0) {
