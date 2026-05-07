@@ -5,33 +5,33 @@ import { PlayerTrack } from '../../store/player.store';
 import { DeezerTrack } from '../../models/search.models';
 
 function toPlaylistTrack(track: PlayerTrack): PlaylistTrack {
-    const base = {
-        id: track.id,
-        title: track.title,
-        duration: track.duration,
-        preview: track.preview,
-        artistId: track.artist.id,
-        artistName: track.artist.name,
-        addedAt: Date.now(),
+  const base = {
+    id: track.id,
+    title: track.title,
+    duration: track.duration,
+    preview: track.preview,
+    artistId: track.artist.id,
+    artistName: track.artist.name,
+    addedAt: Date.now(),
+  };
+
+  if ('album' in track && track.album && 'cover_medium' in track.album) {
+    const t = track as DeezerTrack;
+    return {
+      ...base,
+      albumId: t.album.id,
+      albumTitle: t.album.title,
+      albumCover: t.album.cover_medium,
     };
+  }
 
-    if ('album' in track && track.album && 'cover_medium' in track.album) {
-        const t = track as DeezerTrack;
-        return {
-            ...base,
-            albumId: t.album.id,
-            albumTitle: t.album.title,
-            albumCover: t.album.cover_medium,
-        };
-    }
-
-    return base;
+  return base;
 }
 
 @Component({
-    selector: 'app-add-to-playlist',
-    standalone: true,
-    template: `
+  selector: 'app-add-to-playlist',
+  standalone: true,
+  template: `
     <div class="relative">
 
       <!-- Trigger button -->
@@ -43,9 +43,7 @@ function toPlaylistTrack(track: PlayerTrack): PlaylistTrack {
                opacity-100 md:opacity-0 md:group-hover:opacity-100
                focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
-        <svg aria-hidden="true" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
-        </svg>
+       <i class="pi pi-ellipsis-h" style="font-size: 1.0rem;"></i>
       </button>
 
       <!-- Popover -->
@@ -74,9 +72,7 @@ function toPlaylistTrack(track: PlayerTrack): PlaylistTrack {
               (click)="createAndAdd()"
               class="flex w-full items-center gap-2 rounded-lg px-2 py-2 text-sm transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              <svg aria-hidden="true" class="h-4 w-4 text-muted-foreground" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path d="M12 5v14M5 12h14" stroke-linecap="round" />
-              </svg>
+             <i class="pi pi-plus" style="font-size: 1.0rem;"></i>
               New playlist
             </button>
 
@@ -103,32 +99,32 @@ function toPlaylistTrack(track: PlayerTrack): PlaylistTrack {
   `,
 })
 export class AddToPlaylistComponent {
-    readonly track = input.required<PlayerTrack>();
-    readonly openUpward = input(false);
+  readonly track = input.required<PlayerTrack>();
+  readonly openUpward = input(false);
 
-    readonly added = output<string>(); // emits playlist id
+  readonly added = output<string>(); // emits playlist id
 
-    protected readonly playlistStore = inject(PlaylistStore);
-    protected readonly open = signal(false);
+  protected readonly playlistStore = inject(PlaylistStore);
+  protected readonly open = signal(false);
 
-    toggleOpen(): void {
-        this.open.update(v => !v);
-    }
+  toggleOpen(): void {
+    this.open.update(v => !v);
+  }
 
-    close(): void {
-        this.open.set(false);
-    }
+  close(): void {
+    this.open.set(false);
+  }
 
-    addToPlaylist(playlistId: string): void {
-        this.playlistStore.addTrack(playlistId, toPlaylistTrack(this.track()));
-        this.added.emit(playlistId);
-        this.close();
-    }
+  addToPlaylist(playlistId: string): void {
+    this.playlistStore.addTrack(playlistId, toPlaylistTrack(this.track()));
+    this.added.emit(playlistId);
+    this.close();
+  }
 
-    createAndAdd(): void {
-        const playlist = this.playlistStore.createPlaylist('New Playlist');
-        this.playlistStore.addTrack(playlist.id, toPlaylistTrack(this.track()));
-        this.added.emit(playlist.id);
-        this.close();
-    }
+  createAndAdd(): void {
+    const playlist = this.playlistStore.createPlaylist('New Playlist');
+    this.playlistStore.addTrack(playlist.id, toPlaylistTrack(this.track()));
+    this.added.emit(playlist.id);
+    this.close();
+  }
 }

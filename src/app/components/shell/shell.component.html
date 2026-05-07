@@ -7,7 +7,7 @@
             @for (link of navLinks; track link.path) {
             <a [routerLink]="link.path" routerLinkActive="bg-muted text-foreground font-medium"
                 [routerLinkActiveOptions]="{ exact: link.path === '/' }"
-                class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-muted-foreground transition hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 [attr.aria-label]="link.label">
                 <svg aria-hidden="true" class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2"
                     viewBox="0 0 24 24">
@@ -27,7 +27,7 @@
             </div>
             }
             <button (click)="authStore.logout()"
-                class="mt-1 w-full rounded-lg px-3 py-2 text-left text-sm text-muted-foreground transition hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                class="mt-1 w-full rounded-lg px-3 py-2 text-left text-sm transition hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                 Sign out
             </button>
         </div>

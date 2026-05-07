@@ -1,16 +1,31 @@
 import { Component, effect, inject, OnInit } from "@angular/core";
 import { AlbumCardComponent } from "../search/albumcard.component";
 import { TrackRowComponent } from "../search/trackrow.component";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, RouterLink } from "@angular/router";
 import { DeezerTrack } from "../../models/search.models";
 import { ArtistStore } from "../../store/artist.store";
 import { PlayerStore } from "../../store/player.store";
 import { AddToPlaylistComponent } from "../playlists/add-to-playlist.component";
 import { RecentStore } from "../../store/recent.store";
+import {
+    HlmBreadcrumb,
+    HlmBreadcrumbList,
+    HlmBreadcrumbItem,
+    HlmBreadcrumbLink,
+    HlmBreadcrumbSeparator,
+    HlmBreadcrumbPage,
+} from '@spartan-ng/helm/breadcrumb';
+
 
 @Component({
     selector: 'app-artist',
-    imports: [AlbumCardComponent, TrackRowComponent, AddToPlaylistComponent],
+    standalone: true,
+    imports: [AlbumCardComponent, TrackRowComponent, AddToPlaylistComponent, HlmBreadcrumb,
+        HlmBreadcrumbList,
+        HlmBreadcrumbItem,
+        HlmBreadcrumbLink,
+        HlmBreadcrumbSeparator,
+        HlmBreadcrumbPage, RouterLink],
     templateUrl: 'artist.component.html',
 })
 export class ArtistComponent implements OnInit {

@@ -18,19 +18,20 @@ module.exports = defineConfig([
       '@angular-eslint/directive-selector': [
         'error',
         {
-          type: 'attribute',
-          prefix: 'app',
-          style: 'camelCase',
+          "type": "attribute",
+          "prefix": ["app", "hlm", "spartan"],
+          "style": "camelCase"
         },
       ],
       '@angular-eslint/component-selector': [
         'error',
         {
-          type: 'element',
-          prefix: 'app',
-          style: 'kebab-case',
+          "type": "element",
+          "prefix": ["app", ""],
+          "style": "kebab-case"
         },
       ],
+      "@angular-eslint/no-input-rename": "off"
     },
   },
   {

@@ -18,6 +18,29 @@
 
     <section aria-label="Artist profile" class="relative">
         <div class="relative h-64 w-full overflow-hidden md:h-80">
+            <nav class="absolute top-0 left-0 z-50 w-full px-4 pt-4 md:px-8" aria-label="Breadcrumb" hlmBreadcrumb>
+                <ol hlmBreadcrumbList>
+
+                    <li hlmBreadcrumbItem>
+                        <a hlmBreadcrumbLink link="/">Home</a>
+                    </li>
+
+                    <li hlmBreadcrumbSeparator></li>
+
+                    <li hlmBreadcrumbItem>
+                        <a hlmBreadcrumbLink link="/search">Search</a>
+                    </li>
+
+                    <li hlmBreadcrumbSeparator></li>
+
+                    <li hlmBreadcrumbItem>
+                        <span hlmBreadcrumbPage>
+                            {{ store.artist()?.name ?? 'Artist' }}
+                        </span>
+                    </li>
+
+                </ol>
+            </nav>
             <img [src]="artist.picture_xl" [alt]="artist.name" class="h-full w-full object-cover object-top" />
             <div class="absolute inset-0 bg-linear-to-t from-background via-background/60 to-transparent"></div>
         </div>
@@ -57,13 +80,41 @@
         @if (store.albums().length > 0) {
         <section aria-label="Discography">
             <h2 class="mb-4 text-xl font-semibold">Discography</h2>
+            <div class="mb-4 flex flex-wrap gap-2">
+                <button (click)="store.setAlbumSort('newest')" class="rounded-full px-4 py-1 text-sm transition"
+                    [class.bg-muted]="store.albumSort() === 'newest'">
+                    Newest
+                </button>
+
+                <button (click)="store.setAlbumSort('oldest')" class="rounded-full px-4 py-1 text-sm transition"
+                    [class.bg-muted]="store.albumSort() === 'oldest'">
+                    Oldest
+                </button>
+
+                <button (click)="store.setAlbumSort('az')" class="rounded-full px-4 py-1 text-sm transition"
+                    [class.bg-muted]="store.albumSort() === 'az'">
+                    A-Z
+                </button>
+
+                <button (click)="store.setAlbumSort('za')" class="rounded-full px-4 py-1 text-sm transition"
+                    [class.bg-muted]="store.albumSort() === 'za'">
+                    Z-A
+                </button>
+            </div>
             <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-                @for (album of store.albums(); track album.id) {
+                @for (album of store.paginatedAlbums(); track album.id) {
                 <app-album-card [album]="album" />
                 }
             </div>
-        </section>
-        }
+            @if (store.paginatedAlbums().length < store.albums().length) { <div class="flex justify-center pt-6">
+                <button (click)="store.loadMoreAlbums()"
+                    class="rounded-full bg-muted px-5 py-2 text-sm hover:bg-muted/80 transition">
+                    Load more
+                </button>
+    </div>
+    }
+    </section>
+    }
 
     </div>
     }

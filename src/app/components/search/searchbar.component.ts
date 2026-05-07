@@ -20,9 +20,8 @@ import { SearchStore } from '../../store/search.store';
       placeholder="Search artists, albums, tracks…"
       [value]="store.query()"
       (input)="onInput($event)"
-      (keydown.enter)="onEnter()"
       (focus)="focused.emit()"
-      class="w-full h-11 pl-11 pr-10 rounded-full text-muted-foreground bg-gray-200 text-sm placeholder:text-gray-400 border border-transparent backdrop-blur-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/20 focus:bg-neutral-300 hover:bg-neutral-400
+      class="w-full h-11 pl-11 pr-10 bg-gray-200 rounded-full text-sm transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
       "
     />
   </div>
@@ -37,7 +36,4 @@ export class SearchBarComponent {
     this.store.setQuery(value);
   }
 
-  onEnter(): void {
-
-  }
 }

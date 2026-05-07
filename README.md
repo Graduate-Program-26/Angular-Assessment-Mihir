@@ -1,59 +1,52 @@
-# MusicApp
+# Music App
+This is a high-performance music exploration platform built with Angular 21, designed to provide a seamless, accessible, and reactive interface for the Deezer API. This project prioritises modern Angular patterns, moving away from legacy decorators and modules in favor of a Signals-first state management architecture.
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.5.
+---
 
-## Development server
+## Table of Contents
 
-To start a local development server, run:
+- [App Overview](#app-overview)
+- [Lighthouse Performance](#lighthouse-performance)
+- [Conclusion](#conclusion)
 
-```bash
-ng serve
-```
+---
+## App Overview
+### Home Page
+When you first open the website, you will see the following home page that shows recently viewed artist, recently played songs, top tracks, top artists, etc. 
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+![Home Page](./public/screenshots/home.png)
 
-## Code scaffolding
+### Search Page
+On the search page you can search by artist, album or even song title as seen below:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+![Search Page](./public/screenshots/search.png)
 
-```bash
-ng generate component component-name
-```
+As you can see above, there is a navigation bar to the side with options for a search page, trending page, dashboard page, recent searches and settings which include theme toggling and signing out. 
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Artist Page
+If an artist is selected above then you will be brought to a page that looks like the one below:
 
-```bash
-ng generate --help
-```
+![Artist Page 1](./public/screenshots/artist.png)
+![Artist Page 2](./public/screenshots/artist2.png)
 
-## Building
+As you can see above the artist page contains top tracks as well as the entire discography of the artist which is also filterable.
 
-To build the project run:
+### Album Page
+If you select an album then you will be brought to a page like this where you can view and play the songs on that album:
 
-```bash
-ng build
-```
+![Album Page](./public/screenshots/album.png)
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### Playlist Page
+The playlist page is similar to the album page but it is a page that shows the songs that you have added as a user:
 
-## Running unit tests
+![Playlist Page](./public/screenshots/playlist.png)
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+### Mobile Responsiveness
+This application has been designed with mobile responsiveness in mind and this can be seen below:
 
-```bash
-ng test
-```
+![Mobile View 1](./public/screenshots/mobile.png)
 
-## Running end-to-end tests
+## Lighthouse Performance
+Below you can see the lighthouse performance scores. The overall performance is excellent with a score of 94. It was a technical constraint to achieve 100% accessibility which can be seen below:
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+![Lighthouse Performance](./public/screenshots/lighthouse.png)

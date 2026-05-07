@@ -5,7 +5,6 @@ import { SearchBarComponent } from "./searchbar.component";
 import { ArtistCardComponent } from "./artistcard.component";
 import { AlbumCardComponent } from "./albumcard.component";
 import { TrackRowComponent } from "./trackrow.component";
-import { AudioPlayerComponent } from "../audio-player/audio-player.component";
 import { PlayerStore } from "../../store/player.store";
 
 @Component({
@@ -21,12 +20,27 @@ import { PlayerStore } from "../../store/player.store";
  
       @if (!store.query()) {
         <!-- Empty prompt -->
-        <div class="flex flex-col items-center gap-3 py-24 text-center">
-          <svg aria-hidden="true" class="h-10 w-10 text-muted-foreground" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-            <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+       <div class="flex flex-col items-center justify-center gap-3 py-24 text-center">
+
+        <div class="grid h-16 w-16 place-items-center rounded-full bg-muted/40">
+          <svg
+            aria-hidden="true"
+            class="h-8 w-8 text-muted-foreground"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            viewBox="0 0 24 24"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <path d="m21 21-4.3-4.3" stroke-linecap="round" />
           </svg>
-          <p class="text-muted-foreground text-sm">Search for artists, albums or tracks</p>
         </div>
+
+        <p class="text-muted-foreground text-sm">
+          Search for artists, albums or tracks
+        </p>
+
+      </div>
  
       } @else if (store.loading()) {
         <!-- Loading state -->
@@ -53,29 +67,31 @@ import { PlayerStore } from "../../store/player.store";
  
       } @else {
         <!-- Tabs -->
-        <div role="tablist" aria-label="Result categories" class="mb-6 flex gap-1 border-b border-border">
-          @for (tab of tabs; track tab.key) {
-            <button
-              role="tab"
-              [attr.aria-selected]="store.activeTab() === tab.key"
-              [attr.aria-controls]="tab.key + '-panel'"
-              (click)="store.setActiveTab(tab.key)"
-              class="relative px-4 py-2 text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              [class.text-foreground]="store.activeTab() === tab.key"
-              [class.font-medium]="store.activeTab() === tab.key"
-              [class.text-muted-foreground]="store.activeTab() !== tab.key"
-            >
-              {{ tab.label }}
-              <span class="ml-1.5 text-xs tabular-nums text-muted-foreground">
-                {{ store.resultCounts()[tab.key] }}
-              </span>
-              @if (store.activeTab() === tab.key) {
-                <span class="absolute bottom-0 left-0 h-0.5 w-full rounded-full bg-foreground"></span>
-              }
-            </button>
-          }
-        </div>
- 
+        <div
+          role="tablist"
+          aria-label="Result categories"
+          class="mb-6 flex flex-wrap gap-2"
+        >
+        @for (tab of tabs; track tab.key) {
+          <button
+            role="tab"
+            [attr.aria-selected]="store.activeTab() === tab.key"
+            (click)="store.setActiveTab(tab.key)"
+            class="rounded-full px-4 py-1.5 text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+
+            [class.bg-foreground]="store.activeTab() === tab.key"
+            [class.text-background]="store.activeTab() === tab.key"
+
+            [class.bg-muted]="store.activeTab() !== tab.key"
+            [class.text-muted-foreground]="store.activeTab() !== tab.key"
+            [class.hover:bg-muted/80]="store.activeTab() !== tab.key"
+          >
+            {{ tab.label }}
+
+          </button>
+        }
+      </div>
+
         <!-- Artists panel -->
         @if (store.activeTab() === 'artists') {
           <section
@@ -131,7 +147,6 @@ import { PlayerStore } from "../../store/player.store";
     ArtistCardComponent,
     AlbumCardComponent,
     TrackRowComponent,
-    //AudioPlayerComponent
   ]
 })
 export class SearchComponent {

@@ -69,10 +69,15 @@
             </div>
 
             <!-- Track info -->
-            <div class="min-w-0 flex-1 cursor-pointer" (click)="i !== store.queueIndex() && store.playFromQueue(i)">
-                <p class="truncate text-sm" [class.font-medium]="i === store.queueIndex()">{{ track.title }}</p>
-                <p class="text-muted-foreground truncate text-xs">{{ track.artist.name }}</p>
-            </div>
+            <button type="button" class="min-w-0 flex-1 text-left"
+                (click)="i !== store.queueIndex() && store.playFromQueue(i)">
+                <p class="truncate text-sm" [class.font-medium]="i === store.queueIndex()">
+                    {{ track.title }}
+                </p>
+                <p class="text-muted-foreground truncate text-xs">
+                    {{ track.artist.name }}
+                </p>
+            </button>
 
             <!-- Duration -->
             <span class="text-muted-foreground shrink-0 text-xs tabular-nums">
