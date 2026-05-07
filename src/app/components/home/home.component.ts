@@ -8,7 +8,6 @@ import { PlayerStore } from "../../store/player.store";
 import { RecentStore } from "../../store/recent.store";
 import { AlbumCardComponent } from "../search/albumcard.component";
 import { HorizontalScrollRowComponent } from "./horizontal-scroll-row.component";
-import { DecimalPipe } from "@angular/common";
 
 @Component({
     selector: 'app-home',
