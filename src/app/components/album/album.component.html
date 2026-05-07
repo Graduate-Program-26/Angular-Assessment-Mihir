@@ -92,10 +92,6 @@
                     }
                 </div>
                 }
-
-                @if (album.label) {
-                <p class="text-muted-foreground text-xs">{{ album.label }}</p>
-                }
             </div>
         </div>
     </section>
@@ -103,10 +99,10 @@
     <section aria-label="Tracklist" class="mx-auto max-w-4xl px-4 py-8 md:px-8">
         <div role="grid" aria-label="Album tracks" class="flex flex-col">
             <div role="row" aria-hidden="true"
-                class="text-muted-foreground mb-2 grid grid-cols-[2rem_1fr_auto_2rem] gap-4 border-b border-border px-3 pb-2 text-xs uppercase tracking-wider">
+                class="text-muted-foreground mb-2 grid grid-cols-[2rem_1fr_auto_2rem] gap-4 border-b border-border px-3 pb-2 text-xs tracking-wider">
                 <span>#</span>
                 <span>Title</span>
-                <span>Duration</span>
+                <span><i class="pi pi-clock" style="font-size: 0.75rem"></i></span>
                 <span></span>
             </div>
             @for (track of store.tracks(); track track.id; let i = $index; let last = $last) {
@@ -117,8 +113,8 @@
                 <!-- Track number and play button -->
                 <div class="relative flex items-center justify-center">
                     <span class="text-muted-foreground tabular-nums text-sm transition"
-                        [class.opacity-0]="!!track.preview" aria-hidden="true">
-                        {{ i + 1 }}
+                        [class.opacity-50]="!!track.preview" aria-hidden="true">
+                        {{ $index + 1 }}
                     </span>
                     @if (track.preview) {
                     <button
