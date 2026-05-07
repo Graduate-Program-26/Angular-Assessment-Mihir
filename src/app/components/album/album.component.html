@@ -124,9 +124,7 @@
                     <button
                         class="absolute inset-0 flex items-center justify-center text-foreground opacity-0 transition group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-full"
                         [attr.aria-label]="'Play preview of ' + track.title" (click)="onPreview(track)">
-                        <svg aria-hidden="true" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z" />
-                        </svg>
+                        <i class="pi pi-play" style="font-size: 1.0rem; color: gray;"></i>
                     </button>
                     }
                 </div>
@@ -148,11 +146,7 @@
                         class="rounded-full p-1 text-muted-foreground transition hover:text-foreground
                        opacity-100 md:opacity-0 md:group-hover:opacity-100
                        focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" [class.md:opacity-100]="openMenuId() === track.id">
-                        <svg aria-hidden="true" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                            <circle cx="5" cy="12" r="1.5" />
-                            <circle cx="12" cy="12" r="1.5" />
-                            <circle cx="19" cy="12" r="1.5" />
-                        </svg>
+                        <i class="pi pi-ellipsis-h" style="font-size: 1.0rem;"></i>
                     </button>
 
                     @if (openMenuId() === track.id) {
@@ -169,10 +163,7 @@
                             @if (track.preview) {
                             <button role="menuitem" (click)="onPreview(track); closeMenu()"
                                 class="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-                                <svg aria-hidden="true" class="h-4 w-4 shrink-0 text-muted-foreground"
-                                    fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M8 5v14l11-7z" />
-                                </svg>
+                                <i class="pi pi-play" style="font-size: 0.75rem; color: grey;"></i>
                                 Play preview
                             </button>
                             }
@@ -180,10 +171,7 @@
                             <!-- Add to queue -->
                             <button role="menuitem" (click)="playerStore.addToQueue(track); closeMenu()"
                                 class="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-                                <svg aria-hidden="true" class="h-4 w-4 shrink-0 text-muted-foreground" fill="none"
-                                    stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path d="M12 5v14M5 12h14" stroke-linecap="round" />
-                                </svg>
+                                <i class="pi pi-plus" style="font-size: 0.75rem; color: grey;"></i>
                                 Add to queue
                             </button>
 
@@ -196,10 +184,7 @@
 
                             <button role="menuitem" (click)="createAndAdd(track); closeMenu()"
                                 class="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-                                <svg aria-hidden="true" class="h-4 w-4 shrink-0 text-muted-foreground" fill="none"
-                                    stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path d="M12 5v14M5 12h14" stroke-linecap="round" />
-                                </svg>
+                                <i class="pi pi-play" style="font-size: 0.75rem; color: grey;"></i>
                                 New playlist
                             </button>
 
@@ -207,9 +192,10 @@
                             <div class="max-h-36 overflow-y-auto">
                                 @for (playlist of playlistStore.playlists(); track playlist.id) {
                                 <button role="menuitem" (click)="addToPlaylist(playlist.id, track); closeMenu()"
-                                    class="flex w-full items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                                    class="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                                    <i class="pi pi-list" style="font-size: 0.75rem; color: grey;"></i>
                                     <span class="truncate">{{ playlist.name }}</span>
-                                    <span class="shrink-0 text-xs text-muted-foreground">
+                                    <span class="shrink-0 text-xs">
                                         {{ playlist.tracks.length }}
                                     </span>
                                 </button>
