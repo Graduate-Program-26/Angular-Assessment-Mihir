@@ -81,12 +81,19 @@
         <section aria-label="Discography">
             <h2 class="mb-4 text-xl font-semibold">Discography</h2>
             <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-                @for (album of store.albums(); track album.id) {
+                @for (album of store.paginatedAlbums(); track album.id) {
                 <app-album-card [album]="album" />
                 }
             </div>
-        </section>
-        }
+            @if (store.paginatedAlbums().length < store.albums().length) { <div class="flex justify-center pt-6">
+                <button (click)="store.loadMoreAlbums()"
+                    class="rounded-full bg-muted px-5 py-2 text-sm hover:bg-muted/80 transition">
+                    Load more
+                </button>
+    </div>
+    }
+    </section>
+    }
 
     </div>
     }

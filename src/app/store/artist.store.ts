@@ -27,6 +27,9 @@ export class ArtistStore {
         error: null,
     });
 
+    private readonly pageSize = 15;
+    readonly page = signal(1);
+
     readonly artist = computed(() => this._state().artist);
     readonly albums = computed(() => this._state().albums);
     readonly topTracks = computed(() => this._state().topTracks);
@@ -42,12 +45,26 @@ export class ArtistStore {
 
     readonly albumCount = computed(() => this._state().artist?.nb_album ?? 0);
 
+    readonly sortedAlbums = computed(() => {
+        return [...this._state().albums].sort((a, b) =>
+            new Date(b.release_date).getTime() -
+            new Date(a.release_date).getTime()
+        );
+    });
+
+    readonly paginatedAlbums = computed(() => {
+        const albums = this.sortedAlbums();
+        return albums.slice(0, this.page() * this.pageSize);
+    });
+
     constructor() {
         toObservable(computed(() => this._state().artistId))
             .pipe(
                 filter((id): id is number => id !== null),
                 distinctUntilChanged(),
-                tap(() =>
+                tap(() => {
+                    this.page.set(1);
+
                     this._state.update(s => ({
                         ...s,
                         loading: true,
@@ -55,8 +72,8 @@ export class ArtistStore {
                         artist: null,
                         albums: [],
                         topTracks: [],
-                    }))
-                ),
+                    }));
+                }),
                 switchMap(id =>
                     this.artistService.getArtistPageData(id).pipe(
                         catchError(err => {
@@ -80,6 +97,15 @@ export class ArtistStore {
 
     loadArtist(id: number): void {
         this._state.update(s => ({ ...s, artistId: id }));
+    }
+
+    loadMoreAlbums(): void {
+        const total = this._state().albums.length;
+        const current = this.page() * this.pageSize;
+
+        if (current >= total) return;
+
+        this.page.update(p => p + 1);
     }
 
     private setPageData(data: ArtistPageData): void {
