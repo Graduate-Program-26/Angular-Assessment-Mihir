@@ -38,14 +38,14 @@ export const routes: Routes = [
             {
                 path: 'artist/:id',
                 loadComponent: () =>
-                    import('./components/artist/artist.component').then(
+                    import('./features/artist/components/artist.component').then(
                         m => m.ArtistComponent
                     ),
             },
             {
                 path: 'album/:id',
                 loadComponent: () =>
-                    import('./components/album/album.component').then(
+                    import('./features/albums/components/album.component').then(
                         m => m.AlbumComponent
                     ),
             },

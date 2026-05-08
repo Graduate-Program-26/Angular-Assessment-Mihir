@@ -7,7 +7,7 @@ import {
     ArtistPageData,
     ArtistTopTracksResponse,
     DeezerArtistDetail,
-} from '../models/artist.model';
+} from '../../../models/artist.model';
 
 const DEEZER_API = 'https://api.deezer.com';
 const TOP_TRACKS_LIMIT = 10;

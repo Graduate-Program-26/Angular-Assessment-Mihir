@@ -1,6 +1,6 @@
 import { computed, inject, Injectable, signal } from "@angular/core";
 import { AlbumService } from "../services/album.service";
-import { DeezerAlbumDetail } from "../models/album.model";
+import { DeezerAlbumDetail } from "../../../models/album.model";
 import { takeUntilDestroyed, toObservable } from "@angular/core/rxjs-interop";
 import { catchError, distinctUntilChanged, filter, of, switchMap, tap } from "rxjs";
 
