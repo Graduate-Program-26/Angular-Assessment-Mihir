@@ -112,15 +112,19 @@
 
                 <!-- Track number and play button -->
                 <div class="relative flex items-center justify-center">
-                    <span class="text-muted-foreground tabular-nums text-sm transition"
-                        [class.opacity-50]="!!track.preview" aria-hidden="true">
+                    <span class="text-muted-foreground tabular-nums text-sm transition-opacity duration-200
+                               group-hover:opacity-0">
                         {{ $index + 1 }}
                     </span>
+
                     @if (track.preview) {
                     <button
-                        class="absolute inset-0 flex items-center justify-center text-foreground opacity-0 transition group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-full"
+                        class="absolute inset-0 flex items-center justify-center
+                               text-foreground opacity-0 transition-opacity duration-200
+                               group-hover:opacity-100
+                               focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-full"
                         [attr.aria-label]="'Play preview of ' + track.title" (click)="onPreview(track)">
-                        <i class="pi pi-caret-right" style="font-size: 1.0rem; color: gray;"></i>
+                        <i class="pi pi-caret-right" style="font-size: 1rem; color: gray;"></i>
                     </button>
                     }
                 </div>
