@@ -84,3 +84,4 @@ The following were consulted in the making of this project:
 - https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API
 - https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB#adding_retrieving_and_removing_data
 - https://angular.dev/tools/cli/serve
+- https://auth0.com/docs?tenant=dev-0aachqmr51vhi734%40prod-us-5&locale=en-us
