@@ -1,0 +1,103 @@
+@if (store.queueOpen()) {
+
+<!-- Backdrop -->
+<div class="fixed inset-0 z-40 bg-black/40" aria-hidden="true" (click)="store.closeQueue()"></div>
+
+<!-- Panel -->
+<div role="dialog" aria-label="Queue" aria-modal="true" class="
+          fixed z-50 flex flex-col
+          bg-background border border-border shadow-xl
+ 
+         left-0 right-0 bottom-16 max-h-[60vh] rounded-t-xl
+          md:bottom-18 md:left-auto md:right-4 md:w-80 md:max-h-112 md:rounded-xl
+        ">
+    <!-- Header -->
+    <div class="flex items-center justify-between border-b border-border px-4 py-3 shrink-0">
+        <h2 class="text-sm font-semibold">Queue</h2>
+        <div class="flex items-center gap-2">
+            <span class="text-muted-foreground text-xs">
+                {{ store.queue().length }} tracks
+            </span>
+            @if (store.queue().length > 0) {
+            <button (click)="store.clearQueue()" aria-label="Clear queue"
+                class="text-muted-foreground text-xs hover:text-foreground transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded px-1">
+                Clear
+            </button>
+            }
+            <button (click)="store.closeQueue()" aria-label="Close queue"
+                class="rounded-full p-1 text-muted-foreground hover:text-foreground transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                <svg aria-hidden="true" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2"
+                    viewBox="0 0 24 24">
+                    <path d="M18 6 6 18M6 6l12 12" stroke-linecap="round" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Track list -->
+    <div class="overflow-y-auto flex-1" role="list" aria-label="Queued tracks">
+
+        @if (store.queue().length === 0) {
+        <div class="flex flex-col items-center gap-2 py-10 text-center">
+            <p class="text-muted-foreground text-sm">Your queue is empty</p>
+        </div>
+        }
+
+        @for (track of store.queue(); track track.id; let i = $index) {
+        <div role="listitem" class="group flex items-center gap-3 px-4 py-2.5 transition hover:bg-muted"
+            [class.bg-muted]="i === store.queueIndex()" [attr.aria-current]="i === store.queueIndex() ? 'true' : null">
+            <!-- Playing indicator / index -->
+            <div class="w-5 shrink-0 flex items-center justify-center">
+                @if (i === store.queueIndex()) {
+                <span class="flex items-end gap-0.5 h-4" aria-label="Now playing">
+                    <span class="w-0.5 bg-primary rounded-full animate-bounce"
+                        style="height:60%;animation-delay:0ms"></span>
+                    <span class="w-0.5 bg-primary rounded-full animate-bounce"
+                        style="height:100%;animation-delay:150ms"></span>
+                    <span class="w-0.5 bg-primary rounded-full animate-bounce"
+                        style="height:40%;animation-delay:300ms"></span>
+                </span>
+                } @else {
+                <span class="text-muted-foreground text-xs tabular-nums group-hover:hidden">{{ i + 1 }}</span>
+                <button class="hidden group-hover:flex text-foreground focus-visible:flex focus-visible:outline-none"
+                    [attr.aria-label]="'Play ' + track.title" (click)="store.playFromQueue(i)">
+                    <svg aria-hidden="true" class="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                    </svg>
+                </button>
+                }
+            </div>
+
+            <!-- Track info -->
+            <button type="button" class="min-w-0 flex-1 text-left"
+                (click)="i !== store.queueIndex() && store.playFromQueue(i)">
+                <p class="truncate text-sm" [class.font-medium]="i === store.queueIndex()">
+                    {{ track.title }}
+                </p>
+                <p class="text-muted-foreground truncate text-xs">
+                    {{ track.artist.name }}
+                </p>
+            </button>
+
+            <!-- Duration -->
+            <span class="text-muted-foreground shrink-0 text-xs tabular-nums">
+                {{ track.duration | trackDuration }}
+            </span>
+
+            <!-- Remove button is always visible on mobile, hover on desktop -->
+            @if (i !== store.queueIndex()) {
+            <button (click)="store.removeFromQueue(i)" [attr.aria-label]="'Remove ' + track.title + ' from queue'"
+                class="shrink-0 rounded-full p-1 text-muted-foreground hover:text-foreground transition
+                         opacity-100 md:opacity-0 md:group-hover:opacity-100
+                         focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                <svg aria-hidden="true" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2"
+                    viewBox="0 0 24 24">
+                    <path d="M18 6 6 18M6 6l12 12" stroke-linecap="round" />
+                </svg>
+            </button>
+            }
+        </div>
+        }
+    </div>
+</div>
+}
