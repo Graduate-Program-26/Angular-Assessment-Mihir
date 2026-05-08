@@ -64,15 +64,9 @@
         }
 
         <div class="mt-auto border-t border-border p-3">
-            @if (authStore.user(); as user) {
-            <div class="flex items-center gap-3 rounded-lg px-3 py-2">
-                <img [src]="user.picture_medium" [alt]="user.name"
-                    class="h-8 w-8 rounded-full object-cover ring-1 ring-border" />
-                <span class="truncate text-sm font-medium">{{ user.name }}</span>
-            </div>
-            }
             <button (click)="authStore.logout()"
                 class="mt-1 w-full rounded-lg px-3 py-2 text-left text-sm transition hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                <i class="pi pi-sign-out"></i>
                 Sign out
             </button>
         </div>
