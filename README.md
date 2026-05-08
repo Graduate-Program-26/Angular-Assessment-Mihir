@@ -83,3 +83,4 @@ The following were consulted in the making of this project:
 - https://primeng.org/icons
 - https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API
 - https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB#adding_retrieving_and_removing_data
+- https://angular.dev/tools/cli/serve
