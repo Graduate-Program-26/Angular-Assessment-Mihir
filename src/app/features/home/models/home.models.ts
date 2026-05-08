@@ -28,3 +28,11 @@ export interface RecentArtist {
     picture_medium: string;
     searchedAt: number;
 }
+
+export interface RecentAlbum {
+    id: number;
+    title: string;
+    cover_medium: string;
+    artistName: string;
+    viewedAt: number;
+}

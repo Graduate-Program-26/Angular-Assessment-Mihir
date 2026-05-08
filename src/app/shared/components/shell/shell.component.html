@@ -18,6 +18,51 @@
             }
         </nav>
 
+        <!-- Recently played -->
+        @if (recentStore.recentTracks().length > 0) {
+        <div class="mt-4 px-3">
+            <p class="text-muted-foreground mb-2 px-3 text-xs font-medium uppercase tracking-wider">
+                Recently Played
+            </p>
+            <div class="flex flex-col gap-0.5">
+                @for (track of recentStore.recentTracks().slice(0, 5); track track.id) {
+                <button (click)="playRecent(track)"
+                    class="group flex items-center gap-3 rounded-lg px-3 py-2 text-left transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring w-full"
+                    [attr.aria-label]="'Play ' + track.title + ' by ' + track.artistName">
+                    <img [src]="track.albumCover" [alt]="track.title"
+                        class="h-8 w-8 shrink-0 rounded object-cover ring-1 ring-border" />
+                    <div class="min-w-0">
+                        <p class="truncate text-sm font-medium">{{ track.title }}</p>
+                        <p class="text-muted-foreground truncate text-xs">{{ track.artistName }}</p>
+                    </div>
+                </button>
+                }
+            </div>
+        </div>
+        }
+
+        @if (recentStore.recentAlbums().length > 0) {
+        <div class="mt-4 px-3">
+            <p class="text-muted-foreground mb-2 px-3 text-xs font-medium uppercase tracking-wider">
+                Recent Albums
+            </p>
+            <div class="flex flex-col gap-0.5">
+                @for (album of recentStore.recentAlbums().slice(0, 3); track album.id) {
+                <a [routerLink]="['/album', album.id]" class="flex items-center gap-3 rounded-lg px-3 py-2 transition hover:bg-muted focus-visible:outline-none
+                focus-visible:ring-2 focus-visible:ring-ring"
+                    [attr.aria-label]="album.title + ' by ' + album.artistName">
+                    <img [src]="album.cover_medium" [alt]="album.title"
+                        class="h-8 w-8 shrink-0 rounded object-cover ring-1 ring-border" />
+                    <div class="min-w-0">
+                        <p class="truncate text-sm">{{ album.title }}</p>
+                        <p class="text-muted-foreground truncate text-xs">{{ album.artistName }}</p>
+                    </div>
+                </a>
+                }
+            </div>
+        </div>
+        }
+
         <div class="mt-auto border-t border-border p-3">
             @if (authStore.user(); as user) {
             <div class="flex items-center gap-3 rounded-lg px-3 py-2">

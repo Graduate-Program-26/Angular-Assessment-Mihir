@@ -1,7 +1,8 @@
 import { Injectable, computed, effect, inject, signal } from '@angular/core';
 import { PlayerStore } from './player.store';
 import { DeezerArtist } from '../../features/search/models/search.models';
-import { RecentArtist, RecentTrack } from '../../features/home/models/home.models';
+import { RecentAlbum, RecentArtist, RecentTrack } from '../../features/home/models/home.models';
+import { DeezerAlbumDetail } from '../../features/albums/models/album.model';
 
 
 const STORAGE_KEY_TRACKS = 'melodify_recent_tracks';
@@ -26,6 +27,9 @@ export class RecentStore {
     private readonly _recentArtists = signal<RecentArtist[]>(
         loadFromStorage<RecentArtist>(STORAGE_KEY_ARTISTS)
     );
+    private readonly _recentAlbums = signal<RecentAlbum[]>(
+        loadFromStorage<RecentAlbum>('melodify_recent_albums')
+    );
 
     readonly recentTracks = this._recentTracks.asReadonly();
     readonly recentArtists = this._recentArtists.asReadonly();
@@ -33,6 +37,8 @@ export class RecentStore {
     readonly hasRecentActivity = computed(
         () => this._recentTracks().length > 0 || this._recentArtists().length > 0
     );
+
+    readonly recentAlbums = this._recentAlbums.asReadonly();
 
     constructor() {
         effect(() => {
@@ -81,5 +87,21 @@ export class RecentStore {
         this._recentArtists.set([]);
         localStorage.removeItem(STORAGE_KEY_TRACKS);
         localStorage.removeItem(STORAGE_KEY_ARTISTS);
+    }
+
+    trackAlbumView(album: DeezerAlbumDetail): void {
+        const recent: RecentAlbum = {
+            id: album.id,
+            title: album.title,
+            cover_medium: album.cover_medium,
+            artistName: album.artist.name,
+            viewedAt: Date.now(),
+        };
+        this._recentAlbums.update(albums => {
+            const filtered = albums.filter(a => a.id !== album.id);
+            const updated = [recent, ...filtered].slice(0, MAX_RECENT);
+            localStorage.setItem('melodify_recent_albums', JSON.stringify(updated));
+            return updated;
+        });
     }
 }

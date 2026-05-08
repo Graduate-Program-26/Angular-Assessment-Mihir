@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from "@angular/core";
+import { Component, effect, inject, OnInit, signal } from "@angular/core";
 import { AlbumStore } from "../store/album.store";
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import { DeezerAlbumTrack } from "../models/album.model";
@@ -14,6 +14,7 @@ import {
     HlmBreadcrumbSeparator,
     HlmBreadcrumbPage,
 } from '@spartan-ng/helm/breadcrumb';
+import { RecentStore } from "../../../shared/stores/recent.store";
 
 @Component({
     selector: 'app-album',
@@ -32,6 +33,7 @@ export class AlbumComponent implements OnInit {
     protected readonly playerStore = inject(PlayerStore);
     protected readonly playlistStore = inject(PlaylistStore);
     protected readonly openMenuId = signal<number | null>(null);
+    private readonly recentStore = inject(RecentStore);
 
     ngOnInit(): void {
         const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -69,5 +71,12 @@ export class AlbumComponent implements OnInit {
     createAndAdd(track: DeezerAlbumTrack): void {
         const playlist = this.playlistStore.createPlaylist('New Playlist');
         this.addToPlaylist(playlist.id, track);
+    }
+
+    constructor() {
+        effect(() => {
+            const album = this.store.album();
+            if (album) this.recentStore.trackAlbumView(album);
+        });
     }
 }

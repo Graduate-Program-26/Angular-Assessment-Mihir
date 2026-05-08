@@ -2,6 +2,9 @@ import { Component, inject } from "@angular/core";
 import { AuthStore } from "../../../core/store/auth.store";
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from "@angular/router";
 import { AudioPlayerComponent } from "../audio-player/audio-player.component";
+import { RecentStore } from "../../stores/recent.store";
+import { RecentTrack } from "../../../features/home/models/home.models";
+import { PlayerStore } from "../../stores/player.store";
 
 interface NavLink {
     path: string;
@@ -18,6 +21,8 @@ interface NavLink {
 export class ShellComponent {
     protected readonly authStore = inject(AuthStore);
     private readonly router = inject(Router);
+    protected readonly recentStore = inject(RecentStore);
+    private readonly playerStore = inject(PlayerStore);
 
     protected readonly navLinks: NavLink[] = [
         {
@@ -39,5 +44,19 @@ export class ShellComponent {
 
     onSearchFocus(): void {
         void this.router.navigate(['/search']);
+    }
+
+    playRecent(track: RecentTrack): void {
+        this.playerStore.play({
+            id: track.id,
+            title: track.title,
+            duration: 30,
+            preview: track.preview,
+            artist: { id: 0, name: track.artistName, picture_small: '' },
+            album: { id: 0, title: '', cover_medium: track.albumCover },
+            link: '',
+            rank: 0,
+            type: 'track',
+        });
     }
 }
