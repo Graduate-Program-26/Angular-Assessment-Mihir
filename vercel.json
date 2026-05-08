@@ -1,14 +1,10 @@
 {
+  "buildCommand": "ng build",
+  "outputDirectory": "dist/music-app/browser",
   "rewrites": [
     {
-      "source": "/api/deezer/(.*)",
-      "destination": "/api/deezer/$1"
-    },
-    {
-      "source": "/(.*)",
+      "source": "/((?!api/).*)",
       "destination": "/index.html"
     }
-  ],
-  "buildCommand": "ng build",
-  "outputDirectory": "dist/music-app/browser"
+  ]
 }
