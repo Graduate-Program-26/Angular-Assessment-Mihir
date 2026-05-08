@@ -1,6 +1,6 @@
 import { Component, inject } from "@angular/core";
 import { TrackDurationPipe } from "../../pipes/track-duration.pipe";
-import { PlayerStore } from "../../store/player.store";
+import { PlayerStore } from "../../stores/player.store";
 
 @Component({
     selector: 'app-queue',

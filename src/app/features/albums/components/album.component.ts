@@ -3,8 +3,8 @@ import { AlbumStore } from "../store/album.store";
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import { DeezerAlbumTrack } from "../models/album.model";
 import { DatePipe } from "@angular/common";
-import { TrackDurationPipe } from "../../../pipes/track-duration.pipe";
-import { PlayerStore } from "../../../store/player.store";
+import { TrackDurationPipe } from "../../../shared/pipes/track-duration.pipe";
+import { PlayerStore } from "../../../shared/stores/player.store";
 import { PlaylistStore } from "../../playlists/store/playlist.store";
 import {
     HlmBreadcrumb,

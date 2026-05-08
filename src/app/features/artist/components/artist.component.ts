@@ -4,9 +4,9 @@ import { TrackRowComponent } from "../../search/components/trackrow.component";
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import { DeezerTrack } from "../../search/models/search.models";
 import { ArtistStore } from "../store/artist.store";
-import { PlayerStore } from "../../../store/player.store";
+import { PlayerStore } from "../../../shared/stores/player.store";
 import { AddToPlaylistComponent } from "../../playlists/components/add-to-playlist.component";
-import { RecentStore } from "../../../store/recent.store";
+import { RecentStore } from "../../../shared/stores/recent.store";
 import {
     HlmBreadcrumb,
     HlmBreadcrumbList,

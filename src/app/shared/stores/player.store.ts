@@ -1,5 +1,5 @@
 import { computed, Injectable, OnDestroy, signal } from "@angular/core";
-import { DeezerTrack } from "../features/search/models/search.models";
+import { DeezerTrack } from "../../features/search/models/search.models";
 import { DeezerAlbumTrack } from "../models/album.model";
 
 export type PlayerTrack = DeezerTrack | DeezerAlbumTrack;

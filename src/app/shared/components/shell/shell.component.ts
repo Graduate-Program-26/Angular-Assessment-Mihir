@@ -1,5 +1,5 @@
 import { Component, inject } from "@angular/core";
-import { AuthStore } from "../../store/auth.store";
+import { AuthStore } from "../../../store/auth.store";
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from "@angular/router";
 import { AudioPlayerComponent } from "../audio-player/audio-player.component";
 

@@ -1,8 +1,8 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PlaylistStore } from '../store/playlist.store';
-import { PlayerStore } from '../../../store/player.store';
-import { TrackDurationPipe } from '../../../pipes/track-duration.pipe';
+import { PlayerStore } from '../../../shared/stores/player.store';
+import { TrackDurationPipe } from '../../../shared/pipes/track-duration.pipe';
 import { PlaylistTrack } from '../models/playlist.model';
 import { HlmBreadcrumb, HlmBreadcrumbList, HlmBreadcrumbItem, HlmBreadcrumbLink, HlmBreadcrumbSeparator, HlmBreadcrumbPage } from '@spartan-ng/helm/breadcrumb';
 

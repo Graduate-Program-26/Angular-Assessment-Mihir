@@ -1,12 +1,12 @@
 import { Component, OnInit, inject } from "@angular/core";
 import { RouterLink } from "@angular/router";
-import { RecentTrack } from "../../models/home.models";
-import { DeezerTrack } from "../../features/search/models/search.models";
-import { AuthStore } from "../../store/auth.store";
-import { HomeStore } from "../../store/home.store";
-import { PlayerStore } from "../../store/player.store";
-import { RecentStore } from "../../store/recent.store";
-import { AlbumCardComponent } from "../search/albumcard.component";
+import { RecentTrack } from "../models/home.models";
+import { DeezerTrack } from "../../search/models/search.models";
+import { AuthStore } from "../../../store/auth.store";
+import { HomeStore } from "../store/home.store";
+import { PlayerStore } from "../../../shared/stores/player.store";
+import { RecentStore } from "../../../shared/stores/recent.store";
+import { AlbumCardComponent } from "../../search/components/albumcard.component";
 import { HorizontalScrollRowComponent } from "./horizontal-scroll-row.component";
 
 @Component({

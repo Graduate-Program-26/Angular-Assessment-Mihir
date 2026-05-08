@@ -1,5 +1,5 @@
 import { Component, inject } from "@angular/core";
-import { PlayerStore } from "../../store/player.store";
+import { PlayerStore } from "../../stores/player.store";
 import { QueueComponent } from "../queue/queue.component";
 
 @Component({

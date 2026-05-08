@@ -5,7 +5,7 @@ import { SearchBarComponent } from "./searchbar.component";
 import { ArtistCardComponent } from "./artistcard.component";
 import { AlbumCardComponent } from "./albumcard.component";
 import { TrackRowComponent } from "./trackrow.component";
-import { PlayerStore } from "../../../store/player.store";
+import { PlayerStore } from "../../../shared/stores/player.store";
 
 @Component({
   selector: 'app-search',
