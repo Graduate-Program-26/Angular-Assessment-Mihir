@@ -7,19 +7,19 @@ const REDIRECT_URI = `${window.location.origin}/callback`;
 const PERMS = 'basic_access,email,manage_library,manage_community,delete_library';
 
 function buildDeezerAuthUrl(): string {
-    const params = new URLSearchParams({
-        app_id: DEEZER_APP_ID,
-        redirect_uri: REDIRECT_URI,
-        perms: PERMS,
-        response_type: 'token',
-    });
-    return `https://connect.deezer.com/oauth/auth.php?${params.toString()}`;
+  const params = new URLSearchParams({
+    app_id: DEEZER_APP_ID,
+    redirect_uri: REDIRECT_URI,
+    perms: PERMS,
+    response_type: 'token',
+  });
+  return `https://connect.deezer.com/oauth/auth.php?${params.toString()}`;
 }
 
 @Component({
-    selector: 'app-login',
-    standalone: true,
-    template: `
+  selector: 'app-login',
+  standalone: true,
+  template: `
     <div class="flex min-h-screen items-center justify-center bg-background px-4">
       <div class="w-full max-w-sm space-y-8 text-center">
 
@@ -51,18 +51,18 @@ function buildDeezerAuthUrl(): string {
   `,
 })
 export class LoginComponent {
-    private readonly authStore = inject(AuthStore);
-    private readonly router = inject(Router);
+  private readonly authStore = inject(AuthStore);
+  private readonly router = inject(Router);
 
-    readonly error = this.authStore.error;
+  readonly error = this.authStore.error;
 
-    constructor() {
-        if (this.authStore.isAuthenticated()) {
-            void this.router.navigate(['/']);
-        }
+  constructor() {
+    if (this.authStore.isAuthenticated()) {
+      void this.router.navigate(['/']);
     }
+  }
 
-    login(): void {
-        window.location.href = buildDeezerAuthUrl();
-    }
+  login(): void {
+    window.location.href = buildDeezerAuthUrl();
+  }
 }

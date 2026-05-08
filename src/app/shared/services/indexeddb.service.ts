@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Playlist } from "../features/playlists/models/playlist.model";
+import { Playlist } from "../../features/playlists/models/playlist.model";
 
 const DB_NAME = 'music';
 const DB_VERSION = 1;

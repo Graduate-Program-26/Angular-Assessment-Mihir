@@ -1,4 +1,5 @@
-import { DeezerAlbum, DeezerSearchResponse, DeezerTrack } from '../features/search/models/search.models';
+import { DeezerAlbum, DeezerTrack, DeezerSearchResponse } from "../../search/models/search.models";
+
 
 export interface DeezerArtistDetail {
     id: number;

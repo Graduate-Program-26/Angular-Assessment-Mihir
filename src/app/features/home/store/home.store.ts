@@ -1,6 +1,6 @@
 import { Injectable, inject, signal, computed } from "@angular/core";
 import { HomeState } from "../models/home.models";
-import { HomeService } from "../../../services/home.service";
+import { HomeService } from "../services/home.service";
 
 @Injectable({ providedIn: 'root' })
 export class HomeStore {

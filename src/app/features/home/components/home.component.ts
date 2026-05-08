@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from "@angular/core";
 import { RouterLink } from "@angular/router";
 import { RecentTrack } from "../models/home.models";
 import { DeezerTrack } from "../../search/models/search.models";
-import { AuthStore } from "../../../store/auth.store";
+import { AuthStore } from "../../../core/store/auth.store";
 import { HomeStore } from "../store/home.store";
 import { PlayerStore } from "../../../shared/stores/player.store";
 import { RecentStore } from "../../../shared/stores/recent.store";

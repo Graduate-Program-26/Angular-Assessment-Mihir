@@ -1,4 +1,4 @@
-import { DeezerArtist } from "./search.models";
+import { DeezerArtist } from "../../search/models/search.models";
 
 export interface DeezerGenre {
     id: number;
