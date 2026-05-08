@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PlaylistStore } from '../store/playlist.store';
 import { PlayerStore } from '../../../store/player.store';
 import { TrackDurationPipe } from '../../../pipes/track-duration.pipe';
-import { PlaylistTrack } from '../../../models/playlist.model';
+import { PlaylistTrack } from '../models/playlist.model';
 import { HlmBreadcrumb, HlmBreadcrumbList, HlmBreadcrumbItem, HlmBreadcrumbLink, HlmBreadcrumbSeparator, HlmBreadcrumbPage } from '@spartan-ng/helm/breadcrumb';
 
 

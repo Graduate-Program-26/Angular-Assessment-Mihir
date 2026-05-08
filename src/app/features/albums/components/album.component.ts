@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from "@angular/core";
 import { AlbumStore } from "../store/album.store";
 import { ActivatedRoute, RouterLink } from "@angular/router";
-import { DeezerAlbumTrack } from "../../../models/album.model";
+import { DeezerAlbumTrack } from "../models/album.model";
 import { DatePipe } from "@angular/common";
 import { TrackDurationPipe } from "../../../pipes/track-duration.pipe";
 import { PlayerStore } from "../../../store/player.store";

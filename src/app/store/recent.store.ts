@@ -1,7 +1,7 @@
 import { Injectable, computed, effect, inject, signal } from '@angular/core';
 import { PlayerStore } from './player.store';
 import { RecentArtist, RecentTrack } from '../models/home.models';
-import { DeezerArtist } from '../models/search.models';
+import { DeezerArtist } from '../features/search/models/search.models';
 
 const STORAGE_KEY_TRACKS = 'melodify_recent_tracks';
 const STORAGE_KEY_ARTISTS = 'melodify_recent_artists';

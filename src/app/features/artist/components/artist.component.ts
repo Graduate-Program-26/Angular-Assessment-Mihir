@@ -1,11 +1,11 @@
 import { Component, effect, inject, OnInit } from "@angular/core";
-import { AlbumCardComponent } from "../../../components/search/albumcard.component";
+import { AlbumCardComponent } from "../../search/components/albumcard.component";
 import { TrackRowComponent } from "../../search/components/trackrow.component";
 import { ActivatedRoute, RouterLink } from "@angular/router";
-import { DeezerTrack } from "../../../models/search.models";
+import { DeezerTrack } from "../../search/models/search.models";
 import { ArtistStore } from "../store/artist.store";
 import { PlayerStore } from "../../../store/player.store";
-import { AddToPlaylistComponent } from "../../../components/playlists/add-to-playlist.component";
+import { AddToPlaylistComponent } from "../../playlists/components/add-to-playlist.component";
 import { RecentStore } from "../../../store/recent.store";
 import {
     HlmBreadcrumb,

@@ -1,4 +1,4 @@
-import { DeezerArtist, DeezerAlbum, DeezerTrack } from '../models/search.models';
+import { DeezerArtist, DeezerAlbum, DeezerTrack } from '../features/search/models/search.models';
 
 export interface DeezerChart {
     tracks: { data: DeezerTrack[] };

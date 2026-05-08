@@ -2,8 +2,8 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { switchMap, catchError, of, tap, filter, distinctUntilChanged } from 'rxjs';
 import { ArtistService } from '../services/artist.service';
-import { ArtistPageData, DeezerArtistDetail } from '../../../models/artist.model';
-import { DeezerAlbum, DeezerTrack } from '../../../models/search.models';
+import { ArtistPageData, DeezerArtistDetail } from '../models/artist.model';
+import { DeezerAlbum, DeezerTrack } from '../../search/models/search.models';
 
 interface ArtistState {
     artistId: number | null;

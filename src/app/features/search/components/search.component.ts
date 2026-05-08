@@ -1,5 +1,5 @@
 import { Component, inject } from "@angular/core";
-import { SearchTab, DeezerTrack } from "../../../models/search.models";
+import { SearchTab, DeezerTrack } from "../models/search.models";
 import { SearchStore } from "../store/search.store";
 import { SearchBarComponent } from "./searchbar.component";
 import { ArtistCardComponent } from "./artistcard.component";

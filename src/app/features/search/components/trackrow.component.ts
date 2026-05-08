@@ -1,6 +1,6 @@
 import { Component, inject, input, output, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DeezerTrack } from '../../../models/search.models';
+import { DeezerTrack } from '../models/search.models';
 import { TrackDurationPipe } from '../../../pipes/track-duration.pipe';
 import { PlayerStore } from '../../../store/player.store';
 import { PlaylistStore } from '../../playlists/store/playlist.store';

@@ -1,5 +1,5 @@
 import { computed, inject, Injectable, signal } from "@angular/core";
-import { Playlist, PlaylistState, PlaylistTrack } from "../../../models/playlist.model";
+import { Playlist, PlaylistState, PlaylistTrack } from "../models/playlist.model";
 import { IndexedDbService } from "../../../services/indexeddb.service";
 
 function generateId(): string {
