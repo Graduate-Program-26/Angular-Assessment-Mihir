@@ -1,6 +1,6 @@
 import { Component, effect, inject, OnInit } from "@angular/core";
 import { AlbumCardComponent } from "../../../components/search/albumcard.component";
-import { TrackRowComponent } from "../../../components/search/trackrow.component";
+import { TrackRowComponent } from "../../search/components/trackrow.component";
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import { DeezerTrack } from "../../../models/search.models";
 import { ArtistStore } from "../store/artist.store";

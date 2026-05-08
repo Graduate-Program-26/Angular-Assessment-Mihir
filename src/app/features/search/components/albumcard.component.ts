@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DeezerAlbum } from '../../models/search.models';
+import { DeezerAlbum } from '../../../models/search.models';
 import { DatePipe } from '@angular/common';
 
 @Component({

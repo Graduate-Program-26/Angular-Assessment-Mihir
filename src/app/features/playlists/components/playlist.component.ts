@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { PlaylistStore } from '../../store/playlist.store';
+import { PlaylistStore } from '../store/playlist.store';
 
 @Component({
     selector: 'app-playlists',

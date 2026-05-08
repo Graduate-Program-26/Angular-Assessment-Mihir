@@ -1,5 +1,5 @@
 import { Component, inject, output } from '@angular/core';
-import { SearchStore } from '../../store/search.store';
+import { SearchStore } from '../store/search.store';
 
 @Component({
   selector: 'app-search-bar',

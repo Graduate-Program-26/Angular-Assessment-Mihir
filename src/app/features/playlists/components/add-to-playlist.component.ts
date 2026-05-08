@@ -1,8 +1,8 @@
 import { Component, inject, input, output, signal } from '@angular/core';
-import { PlaylistStore } from '../../store/playlist.store';
-import { PlaylistTrack } from '../../models/playlist.model';
-import { PlayerTrack } from '../../store/player.store';
-import { DeezerTrack } from '../../models/search.models';
+import { PlaylistStore } from '../store/playlist.store';
+import { PlaylistTrack } from '../../../models/playlist.model';
+import { PlayerTrack } from '../../../store/player.store';
+import { DeezerTrack } from '../../../models/search.models';
 
 function toPlaylistTrack(track: PlayerTrack): PlaylistTrack {
   const base = {

@@ -1,13 +1,13 @@
 import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DeezerArtist } from '../../models/search.models';
+import { DeezerArtist } from '../../../models/search.models';
 import { DecimalPipe } from '@angular/common';
 
 @Component({
-    selector: 'app-artist-card',
-    standalone: true,
-    imports: [RouterLink, DecimalPipe],
-    template: `
+  selector: 'app-artist-card',
+  standalone: true,
+  imports: [RouterLink, DecimalPipe],
+  template: `
     <a
       [routerLink]="['/artist', artist().id]"
       class="group flex flex-col items-center gap-3 rounded-xl p-4 transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
@@ -32,5 +32,5 @@ import { DecimalPipe } from '@angular/common';
   `,
 })
 export class ArtistCardComponent {
-    readonly artist = input.required<DeezerArtist>();
+  readonly artist = input.required<DeezerArtist>();
 }

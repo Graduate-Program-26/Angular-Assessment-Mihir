@@ -5,7 +5,7 @@ import { DeezerAlbumTrack } from "../../../models/album.model";
 import { DatePipe } from "@angular/common";
 import { TrackDurationPipe } from "../../../pipes/track-duration.pipe";
 import { PlayerStore } from "../../../store/player.store";
-import { PlaylistStore } from "../../../store/playlist.store";
+import { PlaylistStore } from "../../playlists/store/playlist.store";
 import {
     HlmBreadcrumb,
     HlmBreadcrumbList,
