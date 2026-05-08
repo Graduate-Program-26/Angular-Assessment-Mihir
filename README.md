@@ -1,6 +1,9 @@
 # Music App
 This is a high-performance music exploration platform built with Angular 21, designed to provide a seamless, accessible, and reactive interface for the Deezer API. This project prioritises modern Angular patterns, moving away from legacy decorators and modules in favor of a Signals-first state management architecture.
 
+The site is deployed and available at: 
+https://deezer-mihir.vercel.app/
+
 ---
 
 ## Table of Contents
