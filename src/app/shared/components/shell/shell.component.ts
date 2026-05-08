@@ -53,7 +53,7 @@ export class ShellComponent {
             duration: 30,
             preview: track.preview,
             artist: { id: 0, name: track.artistName, picture_small: '' },
-            album: { id: 0, title: '', cover_medium: track.albumCover },
+            album: { id: 0, title: '', cover_medium: track.albumCover, cover_small: track.albumCover },
             link: '',
             rank: 0,
             type: 'track',

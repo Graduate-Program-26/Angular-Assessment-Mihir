@@ -40,7 +40,7 @@ export interface DeezerTrack {
     rank: number;
     preview: string;
     artist: Pick<DeezerArtist, 'id' | 'name' | 'picture_small'>;
-    album: Pick<DeezerAlbum, 'id' | 'title' | 'cover_medium'>;
+    album: Pick<DeezerAlbum, 'id' | 'title' | 'cover_small' | 'cover_medium'>;
     type: 'track';
 }
 

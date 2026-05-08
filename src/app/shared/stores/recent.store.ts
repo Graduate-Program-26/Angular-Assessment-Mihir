@@ -44,6 +44,7 @@ export class RecentStore {
         effect(() => {
             const track = this.playerStore.currentTrack();
             if (!track) return;
+            if (!track.preview) return;
 
             const recent: RecentTrack = {
                 id: track.id,
@@ -101,6 +102,14 @@ export class RecentStore {
             const filtered = albums.filter(a => a.id !== album.id);
             const updated = [recent, ...filtered].slice(0, MAX_RECENT);
             localStorage.setItem('melodify_recent_albums', JSON.stringify(updated));
+            return updated;
+        });
+    }
+
+    updatePreview(trackId: number, preview: string): void {
+        this._recentTracks.update(tracks => {
+            const updated = tracks.map(t => t.id === trackId ? { ...t, preview } : t);
+            localStorage.setItem(STORAGE_KEY_TRACKS, JSON.stringify(updated));
             return updated;
         });
     }
