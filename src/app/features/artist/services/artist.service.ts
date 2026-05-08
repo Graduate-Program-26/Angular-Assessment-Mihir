@@ -9,7 +9,6 @@ import {
     DeezerArtistDetail,
 } from '../models/artist.model';
 
-const DEEZER_API = 'https://api.deezer.com';
 const TOP_TRACKS_LIMIT = 10;
 
 @Injectable({ providedIn: 'root' })
@@ -18,17 +17,14 @@ export class ArtistService {
 
     getArtistPageData(id: number): Observable<ArtistPageData> {
         return forkJoin({
-            artist: this.http.jsonp<DeezerArtistDetail>(
-                `${DEEZER_API}/artist/${id}?output=jsonp`,
-                'callback'
+            artist: this.http.get<DeezerArtistDetail>(
+                `/api/deezer/artist/${id}?`,
             ),
-            albums: this.http.jsonp<ArtistAlbumsResponse>(
-                `${DEEZER_API}/artist/${id}/albums?output=jsonp`,
-                'callback'
+            albums: this.http.get<ArtistAlbumsResponse>(
+                `/api/deezer/artist/${id}/albums?`,
             ),
-            topTracks: this.http.jsonp<ArtistTopTracksResponse>(
-                `${DEEZER_API}/artist/${id}/top?limit=${TOP_TRACKS_LIMIT}&output=jsonp`,
-                'callback'
+            topTracks: this.http.get<ArtistTopTracksResponse>(
+                `/api/deezer/artist/${id}/top?limit=${TOP_TRACKS_LIMIT}`,
             ),
         }).pipe(
             map(({ artist, albums, topTracks }) => ({
