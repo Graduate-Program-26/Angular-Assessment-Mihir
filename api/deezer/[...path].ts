@@ -5,14 +5,24 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         ? req.query['path'].join('/')
         : req.query['path'] ?? '';
 
-    const query = new URLSearchParams(req.query as Record<string, string>);
-    query.delete('path');
+    const { path: _, ...rest } = req.query;
 
-    const url = `https://api.deezer.com/${path}?${query.toString()}`;
+    const queryString = new URLSearchParams(
+        Object.entries(rest).flatMap(([key, value]) =>
+            Array.isArray(value) ? value.map(v => [key, v]) : [[key, value ?? '']]
+        )
+    ).toString();
+
+    const url = queryString
+        ? `https://api.deezer.com/${path}?${queryString}`
+        : `https://api.deezer.com/${path}`;
+
+    console.log('Proxying to:', url);
 
     const response = await fetch(url);
     const data = await response.json();
 
     res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Content-Type', 'application/json');
     res.json(data);
 }
