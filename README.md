@@ -81,3 +81,5 @@ The following were consulted in the making of this project:
 - https://open.spotify.com/
 - https://medium.com/@dragos.atanasoae_62577/angular-project-structure-guide-small-medium-and-large-projects-e17c361b2029
 - https://primeng.org/icons
+- https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API
+- https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB#adding_retrieving_and_removing_data
