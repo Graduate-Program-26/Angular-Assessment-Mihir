@@ -68,9 +68,9 @@ export class HomeComponent implements OnInit {
     }
 
     private fetchAndPlayRecent(track: RecentTrack): void {
-        this.http.jsonp<{ data: DeezerTrack[] }>(
-            `https://api.deezer.com/search?q=${encodeURIComponent(track.title + ' ' + track.artistName)}&output=jsonp`,
-            'callback'
+        const query = encodeURIComponent(track.title + ' ' + track.artistName);
+        this.http.get<{ data: DeezerTrack[] }>(
+            `/api/deezer/search?q=${query}`
         ).subscribe(results => {
             const match = results.data.find(t => t.id === track.id) ?? results.data[0];
             if (!match?.preview) return;
